@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="242.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.BrigadeController">
+   <children>
+      <TableView layoutX="14.0" layoutY="22.0" prefHeight="200.0" prefWidth="197.0">
+        <columns>
+          <TableColumn fx:id="fioColumn" prefWidth="75.0" text="ФИО" />
+          <TableColumn fx:id="numOfBrigadeColumn" prefWidth="120.0" text="Номер бригады" />
+        </columns>
+      </TableView>
+      <ChoiceBox fx:id="choiceBoxOfNumBrigade" layoutX="231.0" layoutY="85.0" prefHeight="25.0" prefWidth="88.0" />
+      <Label layoutX="231.0" layoutY="62.0" text="Номер бригады" />
+      <TextField fx:id="inputNewWorker" layoutX="231.0" layoutY="22.0" promptText="Введите ФИО" />
+      <Button fx:id="AcceptNewWorker" layoutX="325.0" layoutY="85.0" mnemonicParsing="false" onAction="#BtnAcceptNewWorker" text="Принять" />
+   </children>
+</AnchorPane>
