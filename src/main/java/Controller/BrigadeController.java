@@ -1,6 +1,6 @@
 package Controller;
 
-import Entity.Workers;
+import Entity.Worker;
 import Model.WorkerManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,11 +18,11 @@ import javafx.scene.input.MouseEvent;
 public class BrigadeController {
 
   @FXML
-  private TableView<Workers> TableBrigade;
+  private TableView<Worker> TableBrigade;
   @FXML
-  private TableColumn<Workers, String> fioColumn;
+  private TableColumn<Worker, String> fioColumn;
   @FXML
-  private TableColumn<Workers, Integer> numOfBrigadeColumn;
+  private TableColumn<Worker, Integer> numOfBrigadeColumn;
   @FXML
   private TextField inputNewWorker;
   @FXML
@@ -56,16 +56,16 @@ public class BrigadeController {
 
   public void fillTable()
   {
-    ObservableList<Workers> listOfWorkers = FXCollections.observableArrayList(WorkerManager.getWorker());
-    fioColumn.setCellValueFactory(new PropertyValueFactory<Workers, String>("fullName"));
-    numOfBrigadeColumn.setCellValueFactory(new PropertyValueFactory<Workers, Integer>("numOfBrigade"));
+    ObservableList<Worker> listOfWorkers = FXCollections.observableArrayList(WorkerManager.getWorker());
+    fioColumn.setCellValueFactory(new PropertyValueFactory<Worker, String>("fullName"));
+    numOfBrigadeColumn.setCellValueFactory(new PropertyValueFactory<Worker, Integer>("numOfBrigade"));
     TableBrigade.setItems(listOfWorkers);
   }
 
 
   public void removeWorker(ActionEvent event)
   {
-    Workers worker = TableBrigade.getSelectionModel().getSelectedItem();
+    Worker worker = TableBrigade.getSelectionModel().getSelectedItem();
     WorkerManager.remove(worker);
     fillTable();
     TableBrigade.getSelectionModel().selectFirst();

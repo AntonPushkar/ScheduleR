@@ -1,8 +1,6 @@
 package Entity;
 
 import java.util.Objects;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +11,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Worker")
-public class Workers
+public class Worker extends Employee
 {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
@@ -23,12 +21,12 @@ public class Workers
   private String secName;
   @Column(name = "NumBrigade")
   private int numOfBrigade;
-  @Column(name = "hashCode")
-  private int hashcode;
+  @Column(name = "personnelNum")
+  private int PersonnelNum;
+  @Column(name = "isBrigadier")
+  private boolean brigadier;
 
-  public int getHashcode() {
-    return hashcode;
-  }
+
 
   public String getFullName() {
     return fullName;
@@ -38,13 +36,12 @@ public class Workers
   private String fullName;
 
 
-  public Workers(String name, String secName, int numOfBrigade) {
+  public Worker(String name, String secName, int numOfBrigade, int PersonnelNum) {
     this.name = name;
     this.secName = secName;
     this.numOfBrigade = numOfBrigade;
+    this.PersonnelNum = PersonnelNum;
     this.fullName = name + " " + secName;
-    hashcode = hashCode() * numOfBrigade;
-
   }
 
   @Override
@@ -55,12 +52,12 @@ public class Workers
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Workers workers = (Workers) o;
-    return id == workers.id &&
-        numOfBrigade == workers.numOfBrigade &&
-        Objects.equals(name, workers.name) &&
-        Objects.equals(secName, workers.secName) &&
-        Objects.equals(fullName, workers.fullName);
+    Entity.Worker worker = (Entity.Worker) o;
+    return id == worker.id &&
+        numOfBrigade == worker.numOfBrigade &&
+        Objects.equals(name, worker.name) &&
+        Objects.equals(secName, worker.secName) &&
+        Objects.equals(fullName, worker.fullName);
   }
 
   @Override
@@ -69,7 +66,7 @@ public class Workers
     return Objects.hash(id, name, secName, numOfBrigade, fullName);
   }
 
-  public Workers()
+  public Worker()
   {
 
   }
@@ -96,5 +93,8 @@ public class Workers
 
   public void setNumOfBrigade(int numOfBrigade) {
     this.numOfBrigade = numOfBrigade;
+  }
+  public int getPersonnelNum() {
+    return PersonnelNum;
   }
 }
