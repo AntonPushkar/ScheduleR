@@ -2,6 +2,7 @@ package Controller;
 
 import Main.BrigadeWindow;
 import Main.SetupShiftsWindow;
+import Model.WorkerManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,6 +16,12 @@ public class MainController
   private Button SettingsShift;
   @FXML
   private Button PrintButton;
+
+  @FXML
+  public void initialize()
+  {
+    WorkerManager.getWorker();
+  }
 
   public void createToSchedule(ActionEvent event)
   {
@@ -33,7 +40,6 @@ public class MainController
     SetupShiftsWindow shifts = new SetupShiftsWindow();
     shifts.DisplaySetupShiftWindow();
   }
-
 
   public void PrintBtn(ActionEvent event)
   {
