@@ -3,9 +3,12 @@ package Entity;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -25,6 +28,8 @@ public class Worker extends Employee
   private int PersonnelNum;
   @Column(name = "isBrigadier")
   private boolean brigadier;
+  @ManyToOne(fetch = FetchType.EAGER)
+  private Brigade brigade;
 
 
 
@@ -52,7 +57,8 @@ public class Worker extends Employee
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Entity.Worker worker = (Entity.Worker) o;
+    Worker worker = (Worker) o;
+
     return id == worker.id &&
         numOfBrigade == worker.numOfBrigade &&
         Objects.equals(name, worker.name) &&

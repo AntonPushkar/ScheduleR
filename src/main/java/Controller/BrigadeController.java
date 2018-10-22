@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 public class BrigadeController {
+  private WorkerManager WorkMan = new WorkerManager();
 
   @FXML
   private TableView<Worker> TableBrigade;
@@ -50,13 +51,13 @@ public class BrigadeController {
   {
     String fullName = inputNewWorker.getText();
     int numBrigade = choiceBoxOfNumBrigade.getValue();
-    WorkerManager.GenerateWorker(fullName, numBrigade);
+    WorkMan.GenerateWorker(fullName, numBrigade);
     fillTable();
   }
 
   public void fillTable()
   {
-    ObservableList<Worker> listOfWorkers = FXCollections.observableArrayList(WorkerManager.getWorker());
+    ObservableList<Worker> listOfWorkers = FXCollections.observableArrayList(WorkMan.getDataFromDB());
     fioColumn.setCellValueFactory(new PropertyValueFactory<Worker, String>("fullName"));
     numOfBrigadeColumn.setCellValueFactory(new PropertyValueFactory<Worker, Integer>("numOfBrigade"));
     TableBrigade.setItems(listOfWorkers);
@@ -66,7 +67,7 @@ public class BrigadeController {
   public void removeWorker(ActionEvent event)
   {
     Worker worker = TableBrigade.getSelectionModel().getSelectedItem();
-    WorkerManager.remove(worker);
+    WorkMan.remove(worker);
     fillTable();
     TableBrigade.getSelectionModel().selectFirst();
   }
