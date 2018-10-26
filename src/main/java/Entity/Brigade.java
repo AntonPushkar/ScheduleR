@@ -1,8 +1,12 @@
 package Entity;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,11 +24,9 @@ public class Brigade
   private int numOfBrigade;
   @OneToOne
   Worker brigadier;
-  @OneToMany
-  @JoinTable(name = "team_members", joinColumns = @JoinColumn(name = "Brigade"),
-      inverseJoinColumns = @JoinColumn(name = "members"))
-  private List<Worker> listOfWorkersInBrigade;
+  @OneToMany(fetch = FetchType.EAGER, targetEntity = Worker.class, cascade = CascadeType.ALL)
 
+  private List<Worker> listOfWorkersInBrigade = new ArrayList<>();
   public Worker getBrigadier() {
     return brigadier;
   }
@@ -36,11 +38,10 @@ public class Brigade
   public Brigade() {
   }
 
-  public Brigade(int numOfBrigade, Worker brigadier,
-      List<Worker> listOfWorkersInBrigade) {
+  public Brigade(int numOfBrigade, Worker brigadier)
+  {
     this.numOfBrigade = numOfBrigade;
     this.brigadier = brigadier;
-    this.listOfWorkersInBrigade = listOfWorkersInBrigade;
   }
 
   public Brigade(int numOfBrigade) {

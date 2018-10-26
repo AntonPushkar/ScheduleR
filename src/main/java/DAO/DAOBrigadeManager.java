@@ -23,8 +23,8 @@ public class DAOBrigadeManager extends aDAOManager implements DAOManager<Brigade
 
   public List<Brigade> get() {
     TypedQuery<Brigade> query = em.createQuery(
-        "SELECT new Brigade(c.numOfBrigade, c.brigadier, c.listOfWorkersInBrigade) from Brigade c",
-        Brigade.class);
+        "SELECT c from Brigade c",
+        Entity.Brigade.class);
     List<Brigade> listOfBrigade = query.getResultList();
     return listOfBrigade;
   }
@@ -49,13 +49,17 @@ public class DAOBrigadeManager extends aDAOManager implements DAOManager<Brigade
   public void update(Brigade brigade)
   {
     em.getTransaction().begin();
-    Query query = em.createQuery("UPDATE Brigade c set c.brigadier=:brigadier,"
-        + "c.listOfWorkersInBrigade=:listWorkers where c.numOfBrigade =:numOfBrigade");
+    Query query = em.createQuery("UPDATE Brigade c set c.brigadier=:brigadier where c.numOfBrigade=:numOfBrigade");
     query.setParameter("brigadier", brigade.getBrigadier());
-    query.setParameter("listWorkers", brigade.getListOfWorkersInBrigade());
+   // query.setParameter("listWorkers", brigade.getListOfWorkersInBrigade());
     query.setParameter("numOfBrigade", brigade.getNumOfBrigade());
     query.executeUpdate();
     em.getTransaction().commit();
 
+  }
+
+  public static void main(String[] args) {
+    DAOBrigadeManager brigadeManager = new DAOBrigadeManager();
+    List<Brigade> list = brigadeManager.get();
   }
 }

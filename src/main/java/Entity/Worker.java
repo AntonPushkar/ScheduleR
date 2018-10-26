@@ -1,6 +1,7 @@
 package Entity;
 
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,34 +19,23 @@ public class Worker extends Employee
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private int id;
-//  @Column(name = "name")
-//  private String name;
-//  @Column(name = "secName")
-//  private String secName;
-  @Column(name = "NumBrigade")
-  private int numOfBrigade;
-//  @Column(name = "personnelNum")
-//  private String PersonnelNum;
-  @Column(name = "isBrigadier")
-  private boolean brigadier;
-  @ManyToOne(fetch = FetchType.EAGER)
-  private Brigade brigade;
+    @Column(name = "NumBrigade")
+    private int numOfBrigade;
+    @Column(name = "isBrigadier")
+    private boolean brigadier;
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Brigade.class, cascade = CascadeType.ALL)
+    private Brigade brigade;
 
 
-
-  public String getFullName() {
-    return fullName;
-  }
-
-  @Transient
-  private String fullName;
+    @Transient
+    private String fullName;
 
 
-  public Worker(String name, String secName, int numOfBrigade, String PersonnelNum) {
+    public Worker(String name, String secName, int numOfBrigade, String PersonnelNum) {
     super(name, secName, PersonnelNum);
     this.numOfBrigade = numOfBrigade;
     this.fullName = name + " " + secName;
-  }
+    }
 
 
 
@@ -75,6 +65,10 @@ public class Worker extends Employee
   public Worker()
   {
 
+  }
+
+  public String getFullName() {
+    return fullName;
   }
 
   public String getName() {

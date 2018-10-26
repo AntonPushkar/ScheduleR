@@ -8,7 +8,6 @@ public abstract class aDAOManager
 {
   private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("Schedule");
   private static EntityManager em = emf.createEntityManager();
-
   public static EntityManager getEm() {
     return em;
   }

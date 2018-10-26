@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <AnchorPane prefHeight="242.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.BrigadeController">
    <children>
       <TableView fx:id="TableBrigade" layoutX="14.0" layoutY="22.0" onMousePressed="#selectItem" prefHeight="200.0" prefWidth="197.0">
@@ -19,6 +20,6 @@
       <TextField fx:id="inputNewWorker" layoutX="231.0" layoutY="22.0" promptText="Введите ФИО" />
       <Button fx:id="AcceptNewWorker" layoutX="325.0" layoutY="100.0" mnemonicParsing="false" onAction="#BtnAcceptNewWorker" text="Принять" />
       <Button fx:id="removeWorker" disable="true" layoutX="325.0" layoutY="134.0" mnemonicParsing="false" onAction="#removeWorker" prefHeight="25.0" prefWidth="63.0" text="Удалить" />
-      <TextField layoutX="231.0" layoutY="64.0" promptText="Персональный номер" />
+      <TextField fx:id="personNumColumn" layoutX="231.0" layoutY="64.0" promptText="Персональный номер" />
    </children>
 </AnchorPane>

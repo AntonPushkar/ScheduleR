@@ -31,6 +31,8 @@ public class BrigadeController {
   @FXML
   private Button removeWorker;
   @FXML
+  private TextField personNumColumn;
+  @FXML
   public void initialize()
   {
     choiceBoxOfNumBrigade.setValue(1);
@@ -51,7 +53,8 @@ public class BrigadeController {
   {
     String fullName = inputNewWorker.getText();
     int numBrigade = choiceBoxOfNumBrigade.getValue();
-    WorkMan.prepareWorker(fullName, numBrigade);
+    String personNum = personNumColumn.getText();
+    WorkMan.prepareWorker(fullName, numBrigade, personNum);
     fillTable();
   }
 
