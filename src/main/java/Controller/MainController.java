@@ -20,7 +20,7 @@ public class MainController
   @FXML
   public void initialize()
   {
-    new WorkerManager().getDataFromDB();
+    new WorkerManager().getListOfEntities();
   }
 
   public void createToSchedule(ActionEvent event)

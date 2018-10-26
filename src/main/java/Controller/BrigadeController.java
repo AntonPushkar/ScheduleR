@@ -51,13 +51,13 @@ public class BrigadeController {
   {
     String fullName = inputNewWorker.getText();
     int numBrigade = choiceBoxOfNumBrigade.getValue();
-    WorkMan.GenerateWorker(fullName, numBrigade);
+    WorkMan.prepareWorker(fullName, numBrigade);
     fillTable();
   }
 
   public void fillTable()
   {
-    ObservableList<Worker> listOfWorkers = FXCollections.observableArrayList(WorkMan.getDataFromDB());
+    ObservableList<Worker> listOfWorkers = FXCollections.observableArrayList(WorkMan.getListOfEntities());
     fioColumn.setCellValueFactory(new PropertyValueFactory<Worker, String>("fullName"));
     numOfBrigadeColumn.setCellValueFactory(new PropertyValueFactory<Worker, Integer>("numOfBrigade"));
     TableBrigade.setItems(listOfWorkers);

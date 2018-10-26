@@ -9,40 +9,57 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Brigade
 {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
-  @Column(name = "numOfBrigade")
-  private int numoFBrigade;
-  @Column(name = "brigadier")
+  @Column(name = "numOfBrigade", unique = true)
+  private int numOfBrigade;
+  @OneToOne
+  Worker brigadier;
   @OneToMany
   @JoinTable(name = "team_members", joinColumns = @JoinColumn(name = "Brigade"),
       inverseJoinColumns = @JoinColumn(name = "members"))
   private List<Worker> listOfWorkersInBrigade;
 
+  public Worker getBrigadier() {
+    return brigadier;
+  }
+
+  public void setBrigadier(Worker brigadier) {
+    this.brigadier = brigadier;
+  }
+
   public Brigade() {
   }
 
-  public Brigade(int numoFBrigade) {
-    this.numoFBrigade = numoFBrigade;
+  public Brigade(int numOfBrigade, Worker brigadier,
+      List<Worker> listOfWorkersInBrigade) {
+    this.numOfBrigade = numOfBrigade;
+    this.brigadier = brigadier;
+    this.listOfWorkersInBrigade = listOfWorkersInBrigade;
   }
 
-  public int getNumoFBrigade() {
-    return numoFBrigade;
+  public Brigade(int numOfBrigade) {
+    this.numOfBrigade = numOfBrigade;
   }
 
-  public void setNumoFBrigade(int numoFBrigade) {
-    this.numoFBrigade = numoFBrigade;
+  public int getNumOfBrigade() {
+    return numOfBrigade;
+  }
+
+  public void setNumOfBrigade(int numoFBrigade) {
+    this.numOfBrigade = numoFBrigade;
   }
 
   public List<Worker> getListOfWorkersInBrigade() {
     return listOfWorkersInBrigade;
   }
 
-  public void setListOfWorkersInBrigade(List<Worker> listOfWorkersInBrigade) {
-    this.listOfWorkersInBrigade = listOfWorkersInBrigade;
+  public void addWorker(Worker worker) {
+    this.listOfWorkersInBrigade.add(worker);
   }
 }

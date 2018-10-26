@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -16,16 +15,17 @@ import javax.persistence.Transient;
 @Table(name = "Worker")
 public class Worker extends Employee
 {
-  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
-  @Column(name = "name")
-  private String name;
-  @Column(name = "secName")
-  private String secName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private int id;
+//  @Column(name = "name")
+//  private String name;
+//  @Column(name = "secName")
+//  private String secName;
   @Column(name = "NumBrigade")
   private int numOfBrigade;
-  @Column(name = "personnelNum")
-  private int PersonnelNum;
+//  @Column(name = "personnelNum")
+//  private String PersonnelNum;
   @Column(name = "isBrigadier")
   private boolean brigadier;
   @ManyToOne(fetch = FetchType.EAGER)
@@ -41,13 +41,13 @@ public class Worker extends Employee
   private String fullName;
 
 
-  public Worker(String name, String secName, int numOfBrigade, int PersonnelNum) {
-    this.name = name;
-    this.secName = secName;
+  public Worker(String name, String secName, int numOfBrigade, String PersonnelNum) {
+    super(name, secName, PersonnelNum);
     this.numOfBrigade = numOfBrigade;
-    this.PersonnelNum = PersonnelNum;
     this.fullName = name + " " + secName;
   }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -59,17 +59,17 @@ public class Worker extends Employee
     }
     Worker worker = (Worker) o;
 
-    return id == worker.id &&
+    return
         numOfBrigade == worker.numOfBrigade &&
-        Objects.equals(name, worker.name) &&
-        Objects.equals(secName, worker.secName) &&
+        Objects.equals(super.getName(), worker.getName()) &&
+        Objects.equals(super.getSecName(), worker.getName()) &&
         Objects.equals(fullName, worker.fullName);
   }
 
   @Override
   public int hashCode() {
 
-    return Objects.hash(id, name, secName, numOfBrigade, fullName);
+    return Objects.hash(super.getName(), super.getSecName(), numOfBrigade, fullName);
   }
 
   public Worker()
@@ -78,19 +78,19 @@ public class Worker extends Employee
   }
 
   public String getName() {
-    return name;
+    return super.getName();
   }
 
   public void setName(String name) {
-    this.name = name;
+    super.setName(name);
   }
 
   public String getSecName() {
-    return secName;
+    return super.getSecName();
   }
 
   public void setSecName(String secName) {
-    this.secName = secName;
+    super.setSecName(secName);
   }
 
   public int getNumOfBrigade() {
@@ -100,7 +100,27 @@ public class Worker extends Employee
   public void setNumOfBrigade(int numOfBrigade) {
     this.numOfBrigade = numOfBrigade;
   }
-  public int getPersonnelNum() {
-    return PersonnelNum;
+  public String getPersonnelNum() {
+    return super.getPersonnelNum();
+  }
+
+  public boolean isBrigadier() {
+    return brigadier;
+  }
+
+  public void setBrigadier(boolean brigadier) {
+    this.brigadier = brigadier;
+  }
+
+  public Brigade getBrigade() {
+    return brigade;
+  }
+
+  public void setBrigade(Brigade brigade) {
+    this.brigade = brigade;
+  }
+
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
   }
 }

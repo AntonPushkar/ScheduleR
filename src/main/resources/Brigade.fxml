@@ -14,10 +14,11 @@
           <TableColumn fx:id="numOfBrigadeColumn" prefWidth="120.0" text="Номер бригады" />
         </columns>
       </TableView>
-      <ChoiceBox fx:id="choiceBoxOfNumBrigade" layoutX="231.0" layoutY="85.0" prefHeight="25.0" prefWidth="88.0" />
-      <Label layoutX="231.0" layoutY="62.0" text="Номер бригады" />
+      <ChoiceBox fx:id="choiceBoxOfNumBrigade" layoutX="225.0" layoutY="132.0" prefHeight="25.0" prefWidth="88.0" />
+      <Label layoutX="225.0" layoutY="100.0" text="Номер бригады" />
       <TextField fx:id="inputNewWorker" layoutX="231.0" layoutY="22.0" promptText="Введите ФИО" />
-      <Button fx:id="AcceptNewWorker" layoutX="325.0" layoutY="85.0" mnemonicParsing="false" onAction="#BtnAcceptNewWorker" text="Принять" />
-      <Button fx:id="removeWorker" disable="true" layoutX="325.0" layoutY="121.0" mnemonicParsing="false" onAction="#removeWorker" prefHeight="25.0" prefWidth="63.0" text="Удалить" />
+      <Button fx:id="AcceptNewWorker" layoutX="325.0" layoutY="100.0" mnemonicParsing="false" onAction="#BtnAcceptNewWorker" text="Принять" />
+      <Button fx:id="removeWorker" disable="true" layoutX="325.0" layoutY="134.0" mnemonicParsing="false" onAction="#removeWorker" prefHeight="25.0" prefWidth="63.0" text="Удалить" />
+      <TextField layoutX="231.0" layoutY="64.0" promptText="Персональный номер" />
    </children>
 </AnchorPane>

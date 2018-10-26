@@ -5,7 +5,6 @@ import java.util.List;
 public interface Manager<T>
 {
   void insert(T t);
-  List<T> getDataFromDB();
+  List<T> getListOfEntities();
   void remove(T t);
-
 }
