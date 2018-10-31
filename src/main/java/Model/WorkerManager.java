@@ -12,6 +12,7 @@ public class WorkerManager implements Manager<Worker> {
   private List<Worker> listWorker;
   private DAOManager workerManager = new DAOWorkerManager();
   private BrigadeManager brigadeManager = new BrigadeManager();
+  private List<Brigade> listOfBrigade = brigadeManager.getListOfEntities();
 
   public void prepareWorker(String fullName, int numBrigade, String pesonnelNum) {
     String[] splitFullName = ParstingNameOfWorker.parsingNameOfWorker(fullName);
@@ -21,7 +22,6 @@ public class WorkerManager implements Manager<Worker> {
       name = splitFullName[0];
       secName = splitFullName[1];
       Worker worker = new Worker(name, secName, numBrigade, pesonnelNum);
-      List<Brigade> listOfBrigade = brigadeManager.getListOfEntities();
       listOfBrigade.get(worker.getNumOfBrigade()-1).addWorker(worker);
       worker.setBrigade(listOfBrigade.get(worker.getNumOfBrigade()-1));
       insert(worker);
@@ -40,8 +40,12 @@ public class WorkerManager implements Manager<Worker> {
   }
 
   @Override
-  public void remove(Worker worker) {
+  public void remove(Worker worker)
+  {
+    int numBrigade = worker.getNumOfBrigade()-1;
+    listOfBrigade.get(numBrigade).getListOfWorkersInBrigade().remove(worker);
     workerManager.remove(worker);
+    brigadeManager.update(listOfBrigade.get(numBrigade));
   }
 
   @Override

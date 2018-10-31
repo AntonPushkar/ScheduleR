@@ -1,6 +1,6 @@
 package Entity;
 
-import javax.persistence.Entity;
+import java.io.Serializable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,7 +10,7 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Employee
+public class Employee implements Serializable
 {
   @Id @GeneratedValue(strategy = GenerationType.TABLE)
   private int id;
