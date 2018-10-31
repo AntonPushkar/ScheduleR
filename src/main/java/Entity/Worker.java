@@ -22,18 +22,19 @@ public class Worker extends Employee
     @Column(name = "NumBrigade")
     private int numOfBrigade;
     @Column(name = "isBrigadier")
-    private boolean brigadier;
+    private boolean brigadier=false;
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Brigade.class, cascade = CascadeType.ALL)
     private Brigade brigade;
-
 
     @Transient
     private String fullName;
 
 
-    public Worker(String name, String secName, int numOfBrigade, String PersonnelNum) {
+    public Worker(String name, String secName, int numOfBrigade, String PersonnelNum, boolean isBrigadier)
+    {
     super(name, secName, PersonnelNum);
     this.numOfBrigade = numOfBrigade;
+    this.brigadier = isBrigadier;
     this.fullName = name + " " + secName;
     }
 

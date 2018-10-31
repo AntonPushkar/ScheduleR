@@ -22,7 +22,7 @@ public class DAOWorkerManager extends aDAOManager implements DAOManager<Worker>
   @Override
   public List<Worker> get()
   {
-    TypedQuery<Worker> query = em.createQuery("SELECT new Entity.Worker(c.name, c.secName, c.numOfBrigade, c.personnelNum) from Worker c", Worker.class);
+    TypedQuery<Worker> query = em.createQuery("SELECT new Entity.Worker(c.name, c.secName, c.numOfBrigade, c.personnelNum, c.brigadier) from Worker c", Worker.class);
     List<Worker> listOfWorkers = query.getResultList();
     return listOfWorkers;
   }

@@ -14,7 +14,7 @@ public class BrigadeWindow extends MainWindow
   {
     try {
       Stage stage = new Stage();
-      Parent root = FXMLLoader.load(getClass().getResource("/Brigade.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/BrigadeRef.fxml"));
       stage.setScene(new Scene(root));
       stage.setResizable(false);
       stage.initModality(Modality.WINDOW_MODAL);
