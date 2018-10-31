@@ -22,7 +22,6 @@ public class Brigade
   @OneToOne
   Worker brigadier;
   @OneToMany(fetch = FetchType.EAGER, targetEntity = Worker.class, cascade = CascadeType.ALL)
-
   private List<Worker> listOfWorkersInBrigade = new ArrayList<>();
   public Worker getBrigadier() {
     return brigadier;
@@ -59,5 +58,10 @@ public class Brigade
 
   public void addWorker(Worker worker) {
     this.listOfWorkersInBrigade.add(worker);
+  }
+
+  @Override
+  public String toString() {
+    return "Бригада № "+ numOfBrigade;
   }
 }

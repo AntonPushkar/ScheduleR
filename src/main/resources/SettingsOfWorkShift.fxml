@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="96.0" prefWidth="279.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane prefHeight="353.0" prefWidth="261.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <DatePicker fx:id="DateChooserForCancel" layoutX="23.0" layoutY="21.0" prefHeight="25.0" prefWidth="236.0" promptText="Выберите дату" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="21.0" />
-      <Button layoutX="227.0" layoutY="54.0" mnemonicParsing="false" text="Ok" AnchorPane.leftAnchor="227.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="54.0" />
-      <CheckBox layoutX="23.0" layoutY="58.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="109.0" text="Отмена смены" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="147.0" AnchorPane.topAnchor="58.0" />
-      <ComboBox layoutX="141.0" layoutY="54.0" prefHeight="25.0" prefWidth="22.0" AnchorPane.leftAnchor="141.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="54.0" />
+      <Button layoutX="403.0" layoutY="308.0" mnemonicParsing="false" text="Ок" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="308.0" />
+      <DatePicker fx:id="DateChooserForCancel" depthTest="ENABLE" editable="false" layoutX="22.0" layoutY="21.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="236.0" promptText="Выберите дату" showWeekNumbers="true" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="21.0" />
+      <Button layoutX="28.0" layoutY="308.0" mnemonicParsing="false" text="Изменить" />
+      <Label layoutX="28.0" layoutY="76.0" text="Дата" />
+      <Label layoutX="27.0" layoutY="103.0" text="ДАТА" />
+      <Label layoutX="27.0" layoutY="134.0" text="1 смена" />
    </children>
 </AnchorPane>
