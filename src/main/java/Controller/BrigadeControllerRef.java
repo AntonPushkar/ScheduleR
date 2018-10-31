@@ -1,5 +1,7 @@
 package Controller;
 
+import Controller.DialogsWindow.DialogsErrorBrigade;
+import Controller.Validators.ValidateWorkerFields;
 import Entity.Worker;
 import Model.WorkerManager;
 import javafx.collections.FXCollections;
@@ -11,6 +13,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -27,7 +30,11 @@ public class BrigadeControllerRef
   @FXML
   private Button ButtonAcceptAddWorker;
   @FXML
-  private TextField TextFileadName;
+  private Button CancelButton;
+  @FXML
+  private Button AcceptEditWorker;
+  @FXML
+  private TextField TextFieldName;
   @FXML
   private TextField TextFieldSecName;
   @FXML
@@ -66,15 +73,20 @@ public class BrigadeControllerRef
     if(TableBrigade.getSelectionModel().getSelectedItem() != null)
     {
       DispalyInformation((Worker) TableBrigade.getSelectionModel().getSelectedItem());
+      ButtonEdit.setDisable(false);
     }
   }
 
   public void removeWorker(ActionEvent event)
   {
     Worker worker = TableBrigade.getSelectionModel().getSelectedItem();
-    WorkMan.remove(worker);
-    clearTextFields();
-    fillTable();
+    if(worker != null) {
+      WorkMan.remove(worker);
+      clearTextFields();
+      fillTable();
+    }
+    else
+      DialogsErrorBrigade.AlertNotSelected();
   }
 
   public void DispalyInformation(Worker worker)
@@ -83,7 +95,7 @@ public class BrigadeControllerRef
     String secName=worker.getSecName();
     String personnelNum=worker.getPersonnelNum();
     String numOfBrigade= String.valueOf(worker.getNumOfBrigade());
-    TextFileadName.setText(name);
+    TextFieldName.setText(name);
     TextFieldSecName.setText(secName);
     TextFieldPerssonelNum.setText(personnelNum);
     TextFieldNumBrigade.setText(numOfBrigade);
@@ -97,21 +109,28 @@ public class BrigadeControllerRef
 
   private void clearTextFields()
   {
-    TextFileadName.clear();
+    TextFieldName.clear();
     TextFieldSecName.clear();
     TextFieldPerssonelNum.clear();
     TextFieldNumBrigade.clear();
     isBrigadier.clear();
+    TextFieldName.setPromptText("");
+    TextFieldSecName.setPromptText("");
+    TextFieldPerssonelNum.setPromptText("");
+    TextFieldNumBrigade.setPromptText("");
+    isBrigadier.setPromptText("");
   }
 
   public void addNewWorker(ActionEvent event)
   {
     clearTextFields();
+    ButtonAdd.setVisible(false);
+    CancelButton.setVisible(true);
     TableBrigade.setDisable(true);
     ButtonEdit.setDisable(true);
     ButtonRemove.setDisable(true);
     ButtonAcceptAddWorker.setVisible(true);
-    TextFileadName.setPromptText("Введите имя");
+    TextFieldName.setPromptText("Введите имя");
     TextFieldSecName.setPromptText("Введите фамилию");
     TextFieldPerssonelNum.setPromptText("Введите персональный номер");
     TextFieldNumBrigade.setPromptText("Введите номер бригады");
@@ -124,33 +143,103 @@ public class BrigadeControllerRef
   {
     if(AssignBrigadier.isSelected())
     {
-      isBrigadier.setPromptText("Бригадир: да");
+      isBrigadier.setText("Бригадир: да");
     }
     else
     {
-      isBrigadier.setPromptText("Бригадир: нет");
+      isBrigadier.setText("Бригадир: нет");
     }
   }
 
 
   public void AcceptAdd(ActionEvent event)
   {
-    String name=TextFileadName.getText();
-    String secName=TextFieldSecName.getText();
-    String personnelNum=TextFieldPerssonelNum.getText();
-    int numOfBrigade=Integer.parseInt(TextFieldNumBrigade.getText());
-    boolean isBrigadier = AssignBrigadier.isSelected();
-    Worker worker = new Worker(name, secName, numOfBrigade, personnelNum, isBrigadier);
-    WorkMan.insert(worker);
-    fillTable();
-    clearTextFields();
+    if(validate()) {
+      boolean isBrigadier = AssignBrigadier.isSelected();
+      int numOfBrigade=Integer.parseInt(TextFieldNumBrigade.getText());
+      Worker worker = new Worker(TextFieldName.getText(), TextFieldSecName.getText(),
+          numOfBrigade, TextFieldPerssonelNum.getText(), isBrigadier);
+      WorkMan.insert(worker);
+      fillTable();
+      cancel();
+    }
+    else
+    {
+      DialogsErrorBrigade.AlertInTextField();
+    }
   }
 
   private void setEditableTextFields(boolean inverse)
   {
-    TextFileadName.setEditable(inverse);
+    TextFieldName.setEditable(inverse);
     TextFieldSecName.setEditable(inverse);
     TextFieldPerssonelNum.setEditable(inverse);
     TextFieldNumBrigade.setEditable(inverse);
+  }
+
+  public void cancel(ActionEvent event)
+  {
+    cancel();
+  }
+
+  private void cancel()
+  {
+    clearTextFields();
+    setEditableTextFields(false);
+    CancelButton.setVisible(false);
+    TableBrigade.setDisable(false);
+    ButtonEdit.setDisable(false);
+    ButtonRemove.setDisable(false);
+    ButtonAcceptAddWorker.setVisible(false);
+    ButtonAdd.setVisible(true);
+    AssignBrigadier.setVisible(false);
+    AcceptEditWorker.setVisible(false);
+    TableBrigade.getSelectionModel().clearSelection();
+  }
+
+  public void editWorker(ActionEvent event)
+  {
+    if(TableBrigade.getSelectionModel().getSelectedItem()==null)
+    {
+      DialogsErrorBrigade.AlertNotSelected();
+      return;
+    }
+    ButtonAdd.setVisible(false);
+    ButtonEdit.setDisable(true);
+    ButtonRemove.setDisable(true);
+    CancelButton.setVisible(true);
+    AcceptEditWorker.setVisible(true);
+    TableBrigade.setDisable(true);
+    AssignBrigadier.setVisible(true);
+    setEditableTextFields(true);
+    TextFieldPerssonelNum.setEditable(false);
+
+  }
+
+  private boolean validate()
+  {
+    String name= TextFieldName.getText();
+    String secName=TextFieldSecName.getText();
+    String personnelNum=TextFieldPerssonelNum.getText();
+    String numOfBrigadeStr = TextFieldNumBrigade.getText();
+    return ValidateWorkerFields.validateWorker(name, secName, numOfBrigadeStr, personnelNum);
+  }
+
+  public void AcceptEdit(ActionEvent event)
+  {
+
+    if(validate()) {
+      boolean isBrigadier = AssignBrigadier.isSelected();
+      int numOfBrigade=Integer.parseInt(TextFieldNumBrigade.getText());
+      Worker worker = new Worker(TextFieldName.getText(), TextFieldSecName.getText(),
+          numOfBrigade, TextFieldPerssonelNum.getText(), isBrigadier);
+      WorkMan.update(worker);
+      fillTable();
+      cancel();
+    }
+    else
+    {
+      DialogsErrorBrigade.AlertInTextField();
+    }
   }
 }

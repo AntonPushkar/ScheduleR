@@ -48,6 +48,16 @@ public class DAOWorkerManager extends aDAOManager implements DAOManager<Worker>
   @Override
   public void update(Worker worker)
   {
+    em.getTransaction().begin();
+    Query query = em.createQuery("UPDATE Worker c set c.name=:name, c.secName=:secName"
+        + ", c.numOfBrigade=:numBrigade, c.brigadier=:brigadier where c.personnelNum =:persNum");
+    query.setParameter("persNum", worker.getPersonnelNum());
+    query.setParameter("name", worker.getName());
+    query.setParameter("secName", worker.getSecName());
+    query.setParameter("numBrigade", worker.getNumOfBrigade());
+    query.setParameter("brigadier", worker.isBrigadier());
+    query.executeUpdate();
+    em.getTransaction().commit();
 
   }
 }

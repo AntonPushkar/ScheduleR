@@ -54,7 +54,7 @@ public class BrigadeController {
     String fullName = inputNewWorker.getText();
     int numBrigade = choiceBoxOfNumBrigade.getValue();
     String personNum = personNumColumn.getText();
-    WorkMan.prepareWorker(fullName, numBrigade, personNum);
+    //WorkMan.prepareWorker(fullName, numBrigade, personNum);
     fillTable();
   }
 

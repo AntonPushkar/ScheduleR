@@ -27,15 +27,14 @@ public class WorkerManager implements Manager<Worker> {
   public void remove(Worker worker)
   {
     int numBrigade = worker.getNumOfBrigade()-1;
-    listOfBrigade.get(numBrigade).getListOfWorkersInBrigade().remove(worker);
+    //listOfBrigade.get(numBrigade).getListOfWorkersInBrigade().remove(worker);
     workerManager.remove(worker);
-    brigadeManager.update(listOfBrigade.get(numBrigade));
+   // brigadeManager.update(listOfBrigade.get(numBrigade));
   }
 
   @Override
   public void update(Worker worker)
   {
-
-
+    workerManager.update(worker);
   }
 }
