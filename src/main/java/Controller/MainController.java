@@ -2,7 +2,8 @@ package Controller;
 
 import Main.BrigadeWindow;
 import Main.SetupShiftsWindow;
-import Model.WorkerManager;
+import Model.Managers.BrigadeManager;
+import Model.Managers.WorkerManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,6 +22,7 @@ public class MainController
   public void initialize()
   {
     new WorkerManager().getListOfEntities();
+    new BrigadeManager().fillBrigade();
   }
 
   public void createToSchedule(ActionEvent event)

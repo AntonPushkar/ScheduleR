@@ -1,29 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="271.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.BrigadeController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.BrigadeController">
    <children>
-      <TableView fx:id="TableBrigade" layoutX="14.0" layoutY="22.0" onMousePressed="#selectItem" prefHeight="200.0" prefWidth="234.0">
+      <TableView fx:id="TableBrigade" layoutX="7.0" layoutY="3.0" onMouseClicked="#IsItemSelect" prefHeight="388.0" prefWidth="240.0">
         <columns>
-          <TableColumn fx:id="fioColumn" prefWidth="117.0" text="ФИО" />
-          <TableColumn fx:id="numOfBrigadeColumn" prefWidth="116.0" text="Номер бригады" />
+          <TableColumn fx:id="ColumnFIO" prefWidth="168.0" text="ФИО" />
+          <TableColumn fx:id="ColumnBrigade" prefWidth="70.0" text="Бригада" />
         </columns>
       </TableView>
-      <ChoiceBox fx:id="choiceBoxOfNumBrigade" layoutX="282.0" layoutY="132.0" prefHeight="25.0" prefWidth="88.0" />
-      <Label layoutX="282.0" layoutY="109.0" text="Номер бригады" />
-      <TextField fx:id="inputNewWorker" layoutX="282.0" layoutY="22.0" prefHeight="25.0" prefWidth="159.0" promptText="Введите ФИО" AnchorPane.bottomAnchor="224.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="22.0" />
-      <Button fx:id="AcceptNewWorker" layoutX="378.0" layoutY="105.0" mnemonicParsing="false" onAction="#BtnAcceptNewWorker" text="Принять" />
-      <Button fx:id="removeWorker" disable="true" layoutX="378.0" layoutY="132.0" mnemonicParsing="false" onAction="#removeWorker" prefHeight="25.0" prefWidth="63.0" text="Удалить" />
-      <TextField fx:id="personNumColumn" layoutX="282.0" layoutY="65.0" prefHeight="25.0" prefWidth="159.0" promptText="Персональный номер" />
+      <Pane layoutX="252.0" layoutY="3.0" prefHeight="388.0" prefWidth="347.0">
+         <children>
+            <Label layoutX="122.0" layoutY="14.0" text="Информация">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="56.0" text="Имя" />
+            <Label layoutX="14.0" layoutY="84.0" text="Фамилия" />
+            <Label layoutX="14.0" layoutY="112.0" text="Табельный номер" />
+            <Label layoutX="14.0" layoutY="140.0" text="№ Бригады" />
+            <Label layoutX="14.0" layoutY="168.0" text="Бригадир" />
+            <Button fx:id="ButtonAdd" layoutX="14.0" layoutY="349.0" mnemonicParsing="false" onAction="#addNewWorker" text="Добавить" />
+            <Button fx:id="ButtonEdit" layoutX="96.0" layoutY="350.0" mnemonicParsing="false" onAction="#editWorker" text="Редактировать" />
+            <Button fx:id="ButtonRemove" layoutX="208.0" layoutY="350.0" mnemonicParsing="false" onAction="#removeWorker" text="Удалить" />
+            <Button fx:id="ButtonAcceptAddWorker" layoutX="32.0" layoutY="349.0" mnemonicParsing="false" onAction="#AcceptAdd" text="Ок" visible="false" />
+            <Button fx:id="CancelButton" layoutX="280.0" layoutY="349.0" mnemonicParsing="false" onAction="#cancel" text="Отмена" visible="false" />
+            <TextField fx:id="TextFieldName" editable="false" layoutX="183.0" layoutY="52.0" />
+            <TextField fx:id="TextFieldSecName" editable="false" layoutX="183.0" layoutY="80.0" />
+            <TextField fx:id="TextFieldPerssonelNum" editable="false" layoutX="183.0" layoutY="108.0" />
+            <TextField fx:id="TextFieldNumBrigade" editable="false" layoutX="183.0" layoutY="136.0" />
+            <TextField fx:id="isBrigadier" editable="false" layoutX="183.0" layoutY="164.0" />
+            <CheckBox fx:id="AssignBrigadier" layoutX="145.0" layoutY="168.0" mnemonicParsing="false" onAction="#selectBrigadierCheckBox" visible="false" />
+            <Button fx:id="AcceptEditWorker" layoutX="32.0" layoutY="349.0" mnemonicParsing="false" onAction="#AcceptEdit" text="Ok" visible="false" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

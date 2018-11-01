@@ -1,4 +1,4 @@
-package Model;
+package Model.Managers;
 
 import DAO.DAOManager;
 import DAO.DAOWorkerManager;

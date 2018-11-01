@@ -1,4 +1,4 @@
-package Model;
+package Model.Managers;
 
 import DAO.DAOBrigadeManager;
 import DAO.DAOManager;
@@ -20,7 +20,12 @@ public class BrigadeManager implements Manager<Brigade>
   @Override
   public List<Brigade> getListOfEntities()
   {
-    return listOfBrigade=brigadeManager.get();
+    listOfBrigade=brigadeManager.get();
+    if(listOfBrigade.isEmpty()) {
+      fillBrigade();
+      listOfBrigade=brigadeManager.get();
+    }
+    return listOfBrigade;
   }
 
   @Override
@@ -33,4 +38,15 @@ public class BrigadeManager implements Manager<Brigade>
   public void update(Brigade brigade) {
     brigadeManager.update(brigade);
   }
+
+  public void fillBrigade()
+  {
+    if(listOfBrigade.isEmpty())
+    {
+      for(int i=1; i<=3; i++) {
+        insert(new Brigade(i));
+      }
+    }
+  }
+
 }

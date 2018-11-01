@@ -12,12 +12,12 @@ public class Schedule
   private int id;
   private String bridageDay;
   private String bridageNigth;
-  private String Data;
+  private String Date;
 
-  public Schedule(String bridageDay, String bridageNigth, String data) {
+  public Schedule(String bridageDay, String bridageNigth, String date) {
     this.bridageDay = bridageDay;
     this.bridageNigth = bridageNigth;
-    Data = data;
+    this.Date = date;
   }
 
   public Schedule() {
@@ -32,6 +32,15 @@ public class Schedule
   }
 
   public String getData() {
-    return Data;
+    return Date;
+  }
+
+  @Override
+  public String toString() {
+    return "Schedule{" +
+        "1 смена='" + bridageDay + '\'' +
+        ", 2 смена='" + bridageNigth + '\'' +
+        ", Дата='" + Date + '\'' +
+        '}';
   }
 }

@@ -1,5 +1,7 @@
 package Entity;
 
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,23 +15,24 @@ import javax.persistence.TemporalType;
 
 
 @Entity
-public class Day
-{
-  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Day {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
   @ManyToOne(fetch = FetchType.EAGER, targetEntity = Brigade.class, cascade = CascadeType.ALL)
   private Brigade brigadeDay;
   @ManyToOne(fetch = FetchType.EAGER, targetEntity = Brigade.class, cascade = CascadeType.ALL)
   private Brigade brigadeNigth;
-  @Temporal(TemporalType.DATE)
-  private Date date;
-  private boolean dayOff=false;
+  //@Temporal(TemporalType.DATE)
+  private LocalDate date;
+  private boolean dayOff = false;
 
 
   public Day() {
   }
 
-  public Day(Brigade brigadeDay, Brigade brigadeNigth, Date date, boolean dayOff) {
+  public Day(Brigade brigadeDay, Brigade brigadeNigth, LocalDate date, boolean dayOff) {
     this.brigadeDay = brigadeDay;
     this.brigadeNigth = brigadeNigth;
     this.date = date;
@@ -52,7 +55,7 @@ public class Day
     this.brigadeNigth = brigadeNigth;
   }
 
-  public Date getData() {
+  public LocalDate getDate() {
     return date;
   }
 
@@ -63,4 +66,16 @@ public class Day
   public void setDayOff(boolean dayOff) {
     this.dayOff = dayOff;
   }
+
+  @Override
+  public String toString() {
+    return "Day{" +
+        "brigadeDay=" + brigadeDay +
+        ", brigadeNigth=" + brigadeNigth +
+        ", date='" + date + '\'' +
+        ", dayOff=" + dayOff +
+        '}';
+  }
 }
+
+
