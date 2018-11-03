@@ -6,11 +6,13 @@ import Model.Managers.BrigadeManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-public class DialogueWindowInitialData
+public class DialogueMainWindow
 {
   private static String messageOne = "Отсутствуют данные о бригаде.\nВыберите бригаду,"
       + "\nкоторая начинала прошлую неделю";
@@ -45,6 +47,19 @@ public class DialogueWindowInitialData
 
     return choosenBrigade;
   }
+
+  public static void dontChooseDate()
+  {
+    Alert alert = new Alert(AlertType.WARNING);
+    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+    stage.getIcons().add(new Image("icon.png"));
+    alert.setTitle("Ошибка!");
+    alert.setHeaderText("Не выбрана дата для создания расписания");
+    String textContent = "Выберите дату нажав на календарь над кнопкой 'Создать расписание'";
+    alert.setContentText(textContent);
+    alert.showAndWait();
+  }
+
 
 
 }

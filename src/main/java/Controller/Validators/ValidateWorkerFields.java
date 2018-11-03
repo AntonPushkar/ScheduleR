@@ -1,8 +1,5 @@
 package Controller.Validators;
 
-import java.text.NumberFormat;
-import javax.persistence.criteria.CriteriaBuilder.In;
-
 public class ValidateWorkerFields
 {
 

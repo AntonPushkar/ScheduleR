@@ -1,6 +1,6 @@
 package Controller;
 
-import Controller.DialogsWindow.DialogsErrorBrigade;
+import Controller.DialogsWindow.DialogueWindowIErrorBrigade;
 import Controller.Validators.ValidateWorkerFields;
 import Entity.Worker;
 import Model.Managers.WorkerManager;
@@ -67,6 +67,8 @@ public class BrigadeController
   }
 
 
+
+
   public void IsItemSelect(MouseEvent mouseEvent)
   {
     if(TableBrigade.getSelectionModel().getSelectedItem() != null)
@@ -85,7 +87,7 @@ public class BrigadeController
       fillTable();
     }
     else
-      DialogsErrorBrigade.AlertNotSelected();
+      DialogueWindowIErrorBrigade.AlertNotSelected();
   }
 
   public void DispalyInformation(Worker worker)
@@ -164,7 +166,7 @@ public class BrigadeController
     }
     else
     {
-      DialogsErrorBrigade.AlertInTextField();
+      DialogueWindowIErrorBrigade.AlertInTextField();
     }
   }
 
@@ -200,7 +202,7 @@ public class BrigadeController
   {
     if(TableBrigade.getSelectionModel().getSelectedItem()==null)
     {
-      DialogsErrorBrigade.AlertNotSelected();
+      DialogueWindowIErrorBrigade.AlertNotSelected();
       return;
     }
     ButtonAdd.setVisible(false);
@@ -238,7 +240,7 @@ public class BrigadeController
     }
     else
     {
-      DialogsErrorBrigade.AlertInTextField();
+      DialogueWindowIErrorBrigade.AlertInTextField();
     }
   }
 }

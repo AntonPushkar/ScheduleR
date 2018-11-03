@@ -4,6 +4,7 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -19,6 +20,7 @@ public class SetupShiftsWindow extends MainWindow
       stage.setResizable(false);
       stage.initModality(Modality.WINDOW_MODAL);
       stage.initOwner(MainWindow.getPrimaryStage());
+      stage.getIcons().add(new Image("icon.png"));
       stage.show();
     } catch (IOException e) {
       e.printStackTrace();

@@ -29,6 +29,7 @@ public class Day {
   private boolean dayOff = false;
 
 
+
   public Day() {
   }
 

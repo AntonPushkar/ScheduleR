@@ -3,6 +3,7 @@ package Model.Managers;
 import DAO.DAOBrigadeManager;
 import DAO.DAOManager;
 import Entity.Brigade;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BrigadeManager implements Manager<Brigade>
@@ -41,7 +42,7 @@ public class BrigadeManager implements Manager<Brigade>
 
   public void fillBrigade()
   {
-    if(listOfBrigade.isEmpty())
+    if(listOfBrigade!= null && listOfBrigade.isEmpty())
     {
       for(int i=1; i<=3; i++) {
         insert(new Brigade(i));

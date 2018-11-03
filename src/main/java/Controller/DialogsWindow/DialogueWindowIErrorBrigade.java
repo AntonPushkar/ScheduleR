@@ -2,13 +2,17 @@ package Controller.DialogsWindow;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
-public class DialogsErrorBrigade
+public class DialogueWindowIErrorBrigade
 {
-  private static Alert alert;
+
   public static void AlertInTextField()
   {
     Alert alert = new Alert(AlertType.WARNING);
+    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+    stage.getIcons().add(new Image("icon.png"));
     alert.setTitle("Ошибка!");
     alert.setHeaderText("Проверьте правильность ввода данных!");
     String textContent = "Поля не могут быть пустыми, или с неверными значениями. Имя, Фамилия, номер,"
@@ -19,7 +23,9 @@ public class DialogsErrorBrigade
 
   public static void AlertNotSelected()
   {
-    alert = new Alert(AlertType.WARNING);
+    Alert alert = new Alert(AlertType.WARNING);
+    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+    stage.getIcons().add(new Image("icon.png"));
     alert.setTitle("Ошибка!");
     alert.setHeaderText("Не выбран ни один человек");
     String textContent = "Выберите человека из списка";
