@@ -62,9 +62,9 @@ public class MainController
   {
     ObservableList<Entity.Day> listOfSchedule =
         FXCollections.observableArrayList(scheduleCreater.createSchedule());
-    dateCollumn.setCellValueFactory(new PropertyValueFactory<Day, LocalDate >("date"));
+    dateCollumn.setCellValueFactory(new PropertyValueFactory<Day, LocalDate >("formatterDate"));
     firstShiftColumn.setCellValueFactory(new PropertyValueFactory<Day, Brigade >("brigadeDay"));
-    secondShiftColumn.setCellValueFactory(new PropertyValueFactory<Day, Brigade >("brigadeNigth"));
+    secondShiftColumn.setCellValueFactory(new PropertyValueFactory<Day, Brigade >("brigadeNight"));
     scheduleTable.setItems(listOfSchedule);
   }
 

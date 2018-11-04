@@ -8,6 +8,7 @@ import Model.CreaterSchedule.Validators.ValidateInitialData;
 import Model.CreaterSchedule.util.InformationOfDate;
 import Model.CreaterSchedule.util.DataScheduleProperty;
 import Model.Managers.BrigadeManager;
+import Model.Managers.DayManager;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ import java.util.Locale;
 /*THIS CLASS NEEDS THE EXPLANATIONS!!! ANTON, DON'T FORGET WRITE COMMENT FOR THIS CODE!!!!*/
 public class ScheduleCreater
 {
+
+  private DayManager dayManager = new DayManager();
 
   private int numDayOfMonth = 1;
   private int year;
@@ -49,6 +52,7 @@ public class ScheduleCreater
     if(!ValidateInitialData.validateLastBrigadeInMonth())
       DialogueMainWindow.getInitialBrigade();
     generateDays();
+    dayManager.insertListDays(days);
     return days;
   }
 

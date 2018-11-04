@@ -7,7 +7,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-public class DAOWorkerManager extends aDAOManager implements DAOManager<Worker>
+public class DAOWorkerManager implements DAOManager<Worker>
 {
   private EntityManager em = aDAOManager.getEm();
   @Override
@@ -22,7 +22,8 @@ public class DAOWorkerManager extends aDAOManager implements DAOManager<Worker>
   @Override
   public List<Worker> get()
   {
-    TypedQuery<Worker> query = em.createQuery("SELECT new Entity.Worker(c.name, c.secName, c.numOfBrigade, c.personnelNum, c.brigadier) from Worker c", Worker.class);
+    TypedQuery<Worker> query = em.createQuery("SELECT new Entity.Worker(c.name, c.secName, c.numOfBrigade, c.personnelNum, c.brigadier)"
+        + " from Worker c", Worker.class);
     List<Worker> listOfWorkers = query.getResultList();
     return listOfWorkers;
   }
@@ -30,17 +31,13 @@ public class DAOWorkerManager extends aDAOManager implements DAOManager<Worker>
   @Override
   public void remove(Worker worker)
   {
-    String name = worker.getName();
-    String secName = worker.getSecName();
-    int numOfBrigade = worker.getNumOfBrigade();
-    String personnelNum = worker.getPersonnelNum();
     em.getTransaction().begin();
     Query query = em.createQuery("delete from Worker c where c.name=:name and c.secName =:secName"
         + " and c.numOfBrigade=:numOfBrigade and c.personnelNum=:personnelNum");
-    query.setParameter("name", name);
-    query.setParameter("secName", secName);
-    query.setParameter("numOfBrigade", numOfBrigade);
-    query.setParameter("personnelNum", personnelNum);
+    query.setParameter("name", worker.getName());
+    query.setParameter("secName", worker.getSecName());
+    query.setParameter("numOfBrigade", worker.getNumOfBrigade());
+    query.setParameter("personnelNum", worker.getPersonnelNum());
     query.executeUpdate();
     em.getTransaction().commit();
   }

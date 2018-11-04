@@ -7,7 +7,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-public class DAOBrigadeManager extends aDAOManager implements DAOManager<Brigade>
+public class DAOBrigadeManager implements DAOManager<Brigade>
 {
   private EntityManager em = aDAOManager.getEm();
 

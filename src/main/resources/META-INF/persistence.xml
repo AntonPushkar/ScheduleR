@@ -7,7 +7,7 @@
     <class>Entity.Worker</class>
     <class>Entity.Brigade</class>
     <class>Entity.Day</class>
-    <class>Entity.Schedule</class>
+    <class>Entity.DaysOff</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/schedule?useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>

@@ -2,6 +2,7 @@ package Entity;
 
 import java.time.LocalDate;
 
+import java.time.format.DateTimeFormatter;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,9 +22,14 @@ public class Day {
   private Brigade brigadeDay;
   @ManyToOne(fetch = FetchType.EAGER, targetEntity = Brigade.class, cascade = CascadeType.ALL)
   private Brigade brigadeNigth;
-  //@Temporal(TemporalType.DATE)
+
+  private String formatterDate;
+
+
   private LocalDate date;
   private boolean dayOff = false;
+  private boolean cancelFirstShift = false;
+  private boolean cancelSecondShift = false;
 
 
 
@@ -37,6 +43,8 @@ public class Day {
     this.brigadeNigth = brigadeNigth;
     this.date = date;
     this.dayOff = dayOff;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.YYYY");
+    this.formatterDate = date.format(formatter);
   }
 
   public Brigade getBrigadeDay() {
@@ -47,7 +55,7 @@ public class Day {
     this.brigadeDay = brigadeDay;
   }
 
-  public Brigade getBrigadeNigth() {
+  public Brigade getBrigadeNight() {
     return brigadeNigth;
   }
 
@@ -67,6 +75,24 @@ public class Day {
     this.dayOff = dayOff;
   }
 
+  public boolean isCancelFirstShift() {
+    return cancelFirstShift;
+  }
+
+  public void setCancelFirstShift(boolean cancelFirstShift) {
+    this.cancelFirstShift = cancelFirstShift;
+  }
+
+  public boolean isCancelSecondShift() {
+    return cancelSecondShift;
+  }
+
+  public void setCancelSecondShift(boolean cancelSecondShift) {
+    this.cancelSecondShift = cancelSecondShift;
+  }
+  public String getFormatterDate() {
+    return formatterDate;
+  }
   @Override
   public String toString() {
     return "Day{" +
