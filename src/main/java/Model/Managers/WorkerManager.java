@@ -8,8 +8,7 @@ import java.util.List;
 
 public class WorkerManager implements Manager<Worker> {
 
-  private List<Worker> listWorker;
-  private DAOManager workerManager = new DAOWorkerManager();
+  private DAOManager<Worker> workerManager = new DAOWorkerManager();
   private BrigadeManager brigadeManager = new BrigadeManager();
   private List<Brigade> listOfBrigade = brigadeManager.getListOfEntities();
 
@@ -20,7 +19,8 @@ public class WorkerManager implements Manager<Worker> {
 
   @Override
   public List<Worker> getListOfEntities() {
-    return listWorker=workerManager.get();
+    List<Worker> listWorker;
+    return listWorker =workerManager.get();
   }
 
   @Override

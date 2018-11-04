@@ -1,12 +1,10 @@
 package DAO;
 
 import Entity.Day;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -30,8 +28,7 @@ public class DAODayManager implements DAOManager<Day> {
     Root<Day> c = criteriaQuery.from(Day.class);
     criteriaQuery.select(c);
     Query query = em.createQuery(criteriaQuery);
-    List<Day> listOfDays = query.getResultList();
-    return listOfDays;
+    return (List<Day>) query.getResultList();
   }
 
   @Override

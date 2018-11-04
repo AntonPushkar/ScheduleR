@@ -24,8 +24,7 @@ public class DAOWorkerManager implements DAOManager<Worker>
   {
     TypedQuery<Worker> query = em.createQuery("SELECT new Entity.Worker(c.name, c.secName, c.numOfBrigade, c.personnelNum, c.brigadier)"
         + " from Worker c", Worker.class);
-    List<Worker> listOfWorkers = query.getResultList();
-    return listOfWorkers;
+    return query.getResultList();
   }
 
   @Override

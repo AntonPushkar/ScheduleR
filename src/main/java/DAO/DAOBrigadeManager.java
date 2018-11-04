@@ -25,8 +25,7 @@ public class DAOBrigadeManager implements DAOManager<Brigade>
     TypedQuery<Brigade> query = em.createQuery(
         "SELECT c from Brigade c",
         Entity.Brigade.class);
-    List<Brigade> listOfBrigade = query.getResultList();
-    return listOfBrigade;
+    return query.getResultList();
   }
 
 

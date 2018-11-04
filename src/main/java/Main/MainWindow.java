@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 public class MainWindow extends Application
 {
@@ -21,7 +20,7 @@ public class MainWindow extends Application
   }
 
 
-  public void start(Stage stage) throws Exception {
+  public void start(Stage stage)  {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/Main.fxml"));
       primaryStage = stage;

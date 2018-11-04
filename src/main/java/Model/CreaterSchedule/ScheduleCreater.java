@@ -16,7 +16,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import net.bytebuddy.asm.Advice.Local;
 
 
 /*THIS CLASS NEEDS THE EXPLANATION!!! ANTON, DON'T FORGET WRITE COMMENT FOR THIS CODE!!!!*/
@@ -30,6 +29,7 @@ public class ScheduleCreater
   private int month;
   private int daysInMonth;
   private List<Day> days = new ArrayList<>();
+  private LocalDate date;
 
 
 
@@ -37,6 +37,7 @@ public class ScheduleCreater
     this.year = date.getYear();
     this.month = date.getMonthValue();
     this.daysInMonth = date.lengthOfMonth();
+    this.date = date;
   }
 
 
@@ -45,7 +46,7 @@ public class ScheduleCreater
     {
       days.clear();
     }
-    if ((InformationOfDate.getDayOfWeek(year, month, 1)) != Calendar.MONDAY
+    if ((date.getDayOfWeek().getValue() != DayOfWeek.MONDAY.getValue())
         && !ValidateInitialData.validateFirstBrigadeOfLastWeek())
     {
      createPartOfSchedule();
@@ -177,11 +178,11 @@ public class ScheduleCreater
   public boolean isDayOff(List<DayOff> list, LocalDate date)
   {
     int weekDay = date.getDayOfWeek().getValue();
-    for(int i=0; i<list.size(); i++)
-    {
-      LocalDate dayOff = list.get(i).getDate();
-      if(dayOff.equals(date) )
+    for (DayOff aList : list) {
+      LocalDate dayOff = aList.getDate();
+      if (dayOff.equals(date)) {
         return true;
+      }
     }
     if(weekDay == DayOfWeek.SUNDAY.getValue())
       return true;

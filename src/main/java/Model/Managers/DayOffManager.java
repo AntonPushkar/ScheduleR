@@ -8,7 +8,7 @@ import java.util.List;
 public class DayOffManager implements Manager<DayOff>
 {
 
-  DAOManager manager = new DAODaysOffManager();
+  DAOManager<DayOff> manager = new DAODaysOffManager();
 
   @Override
   public void insert(DayOff dayOff)

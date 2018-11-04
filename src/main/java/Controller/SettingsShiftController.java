@@ -6,7 +6,6 @@ import Model.Managers.DayManager;
 import Model.Managers.DayOffManager;
 import Model.Managers.Manager;
 import java.time.LocalDate;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -69,7 +68,7 @@ public class SettingsShiftController
 
   public void SelectDaysOff(Event event)
   {
-    if(selectShifts==true) {
+    if(selectShifts) {
       invertElements();
       selectShifts = false;
       TableDates.getItems().clear();
@@ -79,7 +78,7 @@ public class SettingsShiftController
 
   public void SelectShifts(Event event)
   {
-     if(selectShifts==false) {
+     if(!selectShifts) {
         invertElements();
         selectShifts = true;
         TableDates.getItems().clear();

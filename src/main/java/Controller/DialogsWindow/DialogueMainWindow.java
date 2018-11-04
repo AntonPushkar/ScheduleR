@@ -23,9 +23,8 @@ public class DialogueMainWindow
     List<Brigade> brigades = new BrigadeManager().getListOfEntities();
 
     List<String> choices = new ArrayList<>();
-    for(int i=0; i<brigades.size(); i++)
-    {
-      choices.add(String.valueOf(brigades.get(i).getNumOfBrigade()));
+    for (Brigade brigade : brigades) {
+      choices.add(String.valueOf(brigade.getNumOfBrigade()));
     }
 
     ChoiceDialog<String> dialog = new ChoiceDialog<>(choices.get(0),choices);

@@ -3,13 +3,12 @@ package Model.Managers;
 import DAO.DAOBrigadeManager;
 import DAO.DAOManager;
 import Entity.Brigade;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BrigadeManager implements Manager<Brigade>
 {
   private List<Brigade> listOfBrigade;
-  private DAOManager brigadeManager = new DAOBrigadeManager();
+  private DAOManager<Brigade> brigadeManager = new DAOBrigadeManager();
 
 
   @Override

@@ -16,37 +16,28 @@ public class ValidateWorkerFields
         numBrigade = 0;
       }
     }
-    boolean isValid = validateName(name) & validateSecName(secName) & validateNumBrigade(numBrigade) &
+    return validateName(name) & validateSecName(secName) & validateNumBrigade(numBrigade) &
         validatePersNum(persNum);
-    return isValid;
   }
 
   private static boolean validateName(String name)
   {
-    if(name != null && (!name.isEmpty()))
-      return true;
-    return false;
+    return name != null && (!name.isEmpty());
   }
 
   private static boolean validateSecName(String secName)
   {
-    if(secName != null && (!secName.isEmpty()))
-      return true;
-    return false;
+    return secName != null && (!secName.isEmpty());
   }
 
   private static boolean validateNumBrigade(int NumOfBrigade)
   {
-    if(NumOfBrigade > 0 && NumOfBrigade <= 3)
-      return true;
-    return false;
+    return NumOfBrigade > 0 && NumOfBrigade <= 3;
   }
 
   private static boolean validatePersNum(String persNum)
   {
-    if(persNum != null && (!persNum.isEmpty()))
-      return true;
-    return false;
+    return persNum != null && (!persNum.isEmpty());
   }
 
 

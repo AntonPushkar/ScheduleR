@@ -25,8 +25,7 @@ public class DAODaysOffManager implements DAOManager<DayOff>  {
   {
     TypedQuery<DayOff> query = em.createQuery("select new DayOff(c.date) from DayOff c",
         DayOff.class);
-    List<DayOff> listOfDayOff =query.getResultList();
-    return listOfDayOff;
+    return query.getResultList();
   }
 
   @Override

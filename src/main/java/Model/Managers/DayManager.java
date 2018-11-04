@@ -7,13 +7,12 @@ import java.util.List;
 
 public class DayManager implements Manager<Day>
 {
-  private DAOManager manager = new DAODayManager();
+  private DAOManager<Day> manager = new DAODayManager();
   public void insertListDays(List<Day> list)
   {
 
-    for(int i=0; i<list.size(); i++)
-    {
-      insert(list.get(i));
+    for (Day aList : list) {
+      insert(aList);
     }
   }
 

@@ -3,7 +3,6 @@ package Controller;
 import Controller.DialogsWindow.DialogueMainWindow;
 import Entity.Brigade;
 import Entity.Day;
-import Entity.Schedule;
 import Main.BrigadeWindow;
 import Main.SetupShiftsWindow;
 import Model.CreaterSchedule.ScheduleCreater;
@@ -63,9 +62,9 @@ public class MainController
 
     ObservableList<Entity.Day> listOfSchedule =
         FXCollections.observableArrayList(scheduleCreater.createSchedule());
-    dateCollumn.setCellValueFactory(new PropertyValueFactory<Day, LocalDate >("formatterDate"));
-    firstShiftColumn.setCellValueFactory(new PropertyValueFactory<Day, Brigade >("brigadeDay"));
-    secondShiftColumn.setCellValueFactory(new PropertyValueFactory<Day, Brigade >("brigadeNight"));
+    dateCollumn.setCellValueFactory(new PropertyValueFactory<>("formatterDate"));
+    firstShiftColumn.setCellValueFactory(new PropertyValueFactory<>("brigadeDay"));
+    secondShiftColumn.setCellValueFactory(new PropertyValueFactory<>("brigadeNight"));
     scheduleTable.setItems(listOfSchedule);
   }
 

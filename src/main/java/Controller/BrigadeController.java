@@ -61,8 +61,8 @@ public class BrigadeController
   public void fillTable()
   {
     ObservableList<Entity.Worker> listOfWorkers = FXCollections.observableArrayList(WorkMan.getListOfEntities());
-    ColumnFIO.setCellValueFactory(new PropertyValueFactory<Entity.Worker, String>("fullName"));
-    ColumnBrigade.setCellValueFactory(new PropertyValueFactory<Entity.Worker, Integer>("numOfBrigade"));
+    ColumnFIO.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+    ColumnBrigade.setCellValueFactory(new PropertyValueFactory<>("numOfBrigade"));
     TableBrigade.setItems(listOfWorkers);
   }
 
@@ -73,7 +73,7 @@ public class BrigadeController
   {
     if(TableBrigade.getSelectionModel().getSelectedItem() != null)
     {
-      DispalyInformation((Worker) TableBrigade.getSelectionModel().getSelectedItem());
+      DispalyInformation(TableBrigade.getSelectionModel().getSelectedItem());
       ButtonEdit.setDisable(false);
     }
   }
@@ -101,7 +101,7 @@ public class BrigadeController
     TextFieldPerssonelNum.setText(personnelNum);
     TextFieldNumBrigade.setText(numOfBrigade);
     String TextIsBrigadier;
-    if(worker.isBrigadier() == false)
+    if(!worker.isBrigadier())
       TextIsBrigadier ="Нет";
     else
       TextIsBrigadier ="Да";

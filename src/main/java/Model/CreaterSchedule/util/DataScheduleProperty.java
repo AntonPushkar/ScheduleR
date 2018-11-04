@@ -11,7 +11,6 @@ public class DataScheduleProperty
   private static FileOutputStream outProp;
   private static FileInputStream inProp;
   private static Properties scheduleProperties = new Properties();
-  private static String comment = "properties of Schedule";
 
   public static void writeProperty(String key, String value)
   {
@@ -21,6 +20,7 @@ public class DataScheduleProperty
       inProp.close();
       outProp = new FileOutputStream("Schedule.properties");
       scheduleProperties.setProperty(key, value);
+      String comment = "properties of Schedule";
       scheduleProperties.store(outProp, comment);
       outProp.close();
     } catch (IOException e) {
@@ -35,8 +35,6 @@ public class DataScheduleProperty
       inProp = new FileInputStream("Schedule.properties");
       scheduleProperties.load(inProp);
       value=scheduleProperties.getProperty(key);
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
     }
