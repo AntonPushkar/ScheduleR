@@ -1,20 +1,24 @@
 package Entity;
 
+import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Schedule
 {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
-  private String bridageDay;
-  private String bridageNigth;
-  private String date;
+  @ManyToOne
+  private Brigade bridageDay;
+  @ManyToOne
+  private Brigade bridageNigth;
+  private LocalDate date;
 
-  public Schedule(String bridageDay, String bridageNigth, String date) {
+  public Schedule(Brigade bridageDay, Brigade bridageNigth, LocalDate date) {
     this.bridageDay = bridageDay;
     this.bridageNigth = bridageNigth;
     this.date = date;
@@ -23,15 +27,15 @@ public class Schedule
   public Schedule() {
   }
 
-  public String getBridageDay() {
+  public Brigade getBridageDay() {
     return bridageDay;
   }
 
-  public String getBridageNigth() {
+  public Brigade getBridageNigth() {
     return bridageNigth;
   }
 
-  public String getDate() {
+  public LocalDate getDate() {
     return date;
   }
 

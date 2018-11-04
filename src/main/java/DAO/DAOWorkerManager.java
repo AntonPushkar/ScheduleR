@@ -9,7 +9,7 @@ import javax.persistence.TypedQuery;
 
 public class DAOWorkerManager extends aDAOManager implements DAOManager<Worker>
 {
-  EntityManager em = aDAOManager.getEm();
+  private EntityManager em = aDAOManager.getEm();
   @Override
   public void insert(Worker worker)
   {

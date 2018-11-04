@@ -1,7 +1,8 @@
 package Controller;
 
 import Controller.DialogsWindow.DialogueMainWindow;
-import Model.CreaterSchedule.Validators.ValidateInitialData;
+import Entity.Brigade;
+import Entity.Day;
 import Entity.Schedule;
 import Main.BrigadeWindow;
 import Main.SetupShiftsWindow;
@@ -31,13 +32,13 @@ public class MainController
   @FXML
   private Button PrintButton;
   @FXML
-  private TableView<Schedule> scheduleTable;
+  private TableView<Day> scheduleTable;
   @FXML
-  private TableColumn<Schedule, String> dateCollumn;
+  private TableColumn<Day, LocalDate> dateCollumn;
   @FXML
-  private TableColumn<Schedule, String> firstShiftColumn;
+  private TableColumn<Day, Brigade> firstShiftColumn;
   @FXML
-  private TableColumn<Schedule, String> secondShiftColumn;
+  private TableColumn<Day, Brigade> secondShiftColumn;
   @FXML
   private DatePicker datePickerSchedule;
   @FXML
@@ -59,21 +60,14 @@ public class MainController
 
   public void fillTable()
   {
-    removeItem();
-    ObservableList<Entity.Schedule> listOfWorkers =
+    ObservableList<Entity.Day> listOfSchedule =
         FXCollections.observableArrayList(scheduleCreater.createSchedule());
-    dateCollumn.setCellValueFactory(new PropertyValueFactory<Schedule, String >("date"));
-    firstShiftColumn.setCellValueFactory(new PropertyValueFactory<Schedule, String >("bridageDay"));
-    secondShiftColumn.setCellValueFactory(new PropertyValueFactory<Schedule, String >("bridageNigth"));
-    scheduleTable.setItems(listOfWorkers);
+    dateCollumn.setCellValueFactory(new PropertyValueFactory<Day, LocalDate >("date"));
+    firstShiftColumn.setCellValueFactory(new PropertyValueFactory<Day, Brigade >("brigadeDay"));
+    secondShiftColumn.setCellValueFactory(new PropertyValueFactory<Day, Brigade >("brigadeNigth"));
+    scheduleTable.setItems(listOfSchedule);
   }
-  public void removeItem()
-  {
-    for(int i=0; i<scheduleTable.getItems().size(); i++)
-    {
-      scheduleTable.getItems().clear();
-    }
-  }
+
 
   public void ClickBrigade(ActionEvent event)
   {

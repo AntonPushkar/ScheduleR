@@ -2,11 +2,13 @@ package Main;
 
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class MainWindow extends Application
 {
@@ -28,6 +30,10 @@ public class MainWindow extends Application
       stage.setMinHeight(520);
       stage.setMinWidth(520);
       stage.show();
+      stage.setOnCloseRequest(WindowEvent -> {
+        Platform.exit();
+        System.exit(0);
+      });
     } catch (IOException e) {
       e.printStackTrace();
     }

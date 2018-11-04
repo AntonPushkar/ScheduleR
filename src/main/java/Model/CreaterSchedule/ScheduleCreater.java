@@ -14,7 +14,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
+
+/*THIS CLASS NEEDS THE EXPLANATIONS!!! ANTON, DON'T FORGET WRITE COMMENT FOR THIS CODE!!!!*/
 public class ScheduleCreater
 {
 
@@ -22,7 +25,6 @@ public class ScheduleCreater
   private int year;
   private int month;
   private int daysInMonth;
-  private List<Schedule> schedules = new ArrayList<>();
   private List<Day> days = new ArrayList<>();
 
 
@@ -34,21 +36,30 @@ public class ScheduleCreater
   }
 
 
-  public  List<Schedule> createSchedule() {
+  public  List<Day> createSchedule() {
+    if(!days.isEmpty())
+    {
+      days.clear();
+    }
     if ((InformationOfDate.getDayOfWeek(year, month, 1)) != Calendar.MONDAY
-        && !ValidateInitialData.validateFirstBrigadeOfLastWeek()) {
-      int lastMonday = InformationOfDate.getLastMondayInMonth(year, month - 1);
-      LocalDate date = LocalDate.of(year, month-1, lastMonday);
-      ScheduleCreater creater = new ScheduleCreater(date);
-      creater.setNumDayOfMonth(lastMonday);
-      creater.createSchedule();
-      generateDays();
+        && !ValidateInitialData.validateFirstBrigadeOfLastWeek())
+    {
+     createPartOfSchedule();
     }
     if(!ValidateInitialData.validateLastBrigadeInMonth())
       DialogueMainWindow.getInitialBrigade();
     generateDays();
-    generateSchedule();
-    return schedules;
+    return days;
+  }
+
+  private void createPartOfSchedule()
+  {
+    int lastMonday = InformationOfDate.getLastMondayInMonth(year, month - 1);
+    LocalDate date = LocalDate.of(year, month-1, lastMonday);
+    ScheduleCreater creater = new ScheduleCreater(date);
+    creater.setNumDayOfMonth(lastMonday);
+    creater.createSchedule();
+    generateDays();
   }
 
 
@@ -108,30 +119,11 @@ public class ScheduleCreater
         DataScheduleProperty.writeProperty("MonthOfLastSchedule", String.valueOf(month));
       }
     }
+    numDayOfMonth=1;
     return days;
   }
 
 
-  public List<Schedule> generateSchedule()
-  {
-    Date date;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    for(int i=0; i<days.size(); i++)
-    {
-      Day day = days.get(i);
-      Brigade BrigadeDay=days.get(i).getBrigadeDay();
-      Brigade BrigadeNight=days.get(i).getBrigadeNigth();
-      String strDate = formatter.format(days.get(i).getDate());
-      if(days.get(i).isDayOff())
-      {
-        schedules.add(new Schedule("Выходной", "Выходной", strDate));
-        continue;
-      }
-
-      schedules.add(new Schedule(BrigadeDay.toString(),BrigadeNight.toString(),strDate));
-    }
-    return schedules;
-  }
 
 
   public int getYear() {
