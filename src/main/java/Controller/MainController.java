@@ -60,6 +60,7 @@ public class MainController
 
   public void fillTable()
   {
+
     ObservableList<Entity.Day> listOfSchedule =
         FXCollections.observableArrayList(scheduleCreater.createSchedule());
     dateCollumn.setCellValueFactory(new PropertyValueFactory<Day, LocalDate >("formatterDate"));

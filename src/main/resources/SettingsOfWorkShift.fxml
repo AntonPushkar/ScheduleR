@@ -7,9 +7,9 @@
 
 <AnchorPane prefHeight="378.0" prefWidth="598.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SettingsShiftController">
    <children>
-      <TableView fx:id="TableShiftsData" layoutX="14.0" layoutY="51.0" onMouseClicked="#IsItemSelect" prefHeight="355.0" prefWidth="243.0">
+      <TableView fx:id="TableDates" layoutX="14.0" layoutY="51.0" onMouseClicked="#IsItemSelectShifts" prefHeight="355.0" prefWidth="243.0">
          <columns>
-            <TableColumn fx:id="ColumnFIO" prefWidth="239.0" text="Дата" />
+            <TableColumn fx:id="ColumnDates" prefWidth="239.0" text="Дата" />
          </columns>
       </TableView>
       <Pane layoutX="252.0" layoutY="3.0" prefHeight="388.0" prefWidth="347.0">

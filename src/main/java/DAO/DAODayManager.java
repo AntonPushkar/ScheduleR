@@ -1,11 +1,15 @@
 package DAO;
 
 import Entity.Day;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 public class DAODayManager implements DAOManager<Day> {
 
@@ -21,8 +25,11 @@ public class DAODayManager implements DAOManager<Day> {
 
   @Override
   public List<Day> get() {
-    TypedQuery<Day> query = em.createQuery("SELECT new"
-        + " Entity.Day(c.brigadeDay, c.brigadeNigth, c.date, c.dayOff) from Day c", Day.class);
+    CriteriaBuilder builder = em.getCriteriaBuilder();
+    CriteriaQuery<Day> criteriaQuery = builder.createQuery(Day.class);
+    Root<Day> c = criteriaQuery.from(Day.class);
+    criteriaQuery.select(c);
+    Query query = em.createQuery(criteriaQuery);
     List<Day> listOfDays = query.getResultList();
     return listOfDays;
   }
@@ -41,7 +48,7 @@ public class DAODayManager implements DAOManager<Day> {
   public void update(Day day)
   {
     em.getTransaction().begin();
-    Query query = em.createQuery("UPDATE Day c set c.dayOff=:dayOff, c.brigadeNigth=:brigadeNight"
+    Query query = em.createQuery("UPDATE Day c set c.dayOff=:dayOff, c.brigadeNight=:brigadeNight"
         + ", c.brigadeDay=:brigadeDay");
     query.setParameter("dayOff", day.isDayOff());
     query.setParameter("brigadeNight", day.getBrigadeNight());

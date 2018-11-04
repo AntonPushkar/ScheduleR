@@ -3,12 +3,14 @@ package Model.CreaterSchedule;
 import Controller.DialogsWindow.DialogueMainWindow;
 import Entity.Brigade;
 import Entity.Day;
+import Entity.DayOff;
 import Entity.Schedule;
 import Model.CreaterSchedule.Validators.ValidateInitialData;
 import Model.CreaterSchedule.util.InformationOfDate;
 import Model.CreaterSchedule.util.DataScheduleProperty;
 import Model.Managers.BrigadeManager;
 import Model.Managers.DayManager;
+import Model.Managers.DayOffManager;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -49,10 +51,13 @@ public class ScheduleCreater
     {
      createPartOfSchedule();
     }
-    if(!ValidateInitialData.validateLastBrigadeInMonth())
-      DialogueMainWindow.getInitialBrigade();
-    generateDays();
-    dayManager.insertListDays(days);
+    else
+    {
+      if(!ValidateInitialData.validateLastBrigadeInMonth())
+        DialogueMainWindow.getInitialBrigade();
+      generateDays();
+      dayManager.insertListDays(days);
+    }
     return days;
   }
 
@@ -73,13 +78,15 @@ public class ScheduleCreater
   public List<Day> generateDays()
   {
     List<Brigade> brigades= new BrigadeManager().getListOfEntities();
-    int firstBrigadeOfLastWeek = -1;
+    int firstBrigadeOfLastWeek;
     Brigade dayBrigade;
     Brigade nightBrigade;
-    for(int numBrigade =0; numDayOfMonth <=daysInMonth; numDayOfMonth++)
+    List<DayOff> daysOff = new DayOffManager().getListOfEntities();
+    for(int numBrigade =0; numDayOfMonth<=daysInMonth; numDayOfMonth++)
     {
       LocalDate date = LocalDate.of(year, month, numDayOfMonth);
-      boolean isDayOff=false;
+      boolean isDayOff=isDayOff(daysOff, date);
+
       int dayOfWeek = InformationOfDate.getDayOfWeek(year, month, numDayOfMonth);
 
       if(dayOfWeek == Calendar.MONDAY) {
@@ -91,6 +98,7 @@ public class ScheduleCreater
       {
         numBrigade=Integer.parseInt(DataScheduleProperty.readProperty("lastBrigadeInMonth"));
       }
+      else
 
       if(dayOfWeek == Calendar.SUNDAY)
       {
@@ -127,6 +135,16 @@ public class ScheduleCreater
     return days;
   }
 
+
+  public boolean isDayOff(List<DayOff> list, LocalDate date)
+  {
+    for(int i=0; i<list.size(); i++)
+    {
+      if(list.get(i).equals(date))
+        return true;
+    }
+    return false;
+  }
 
 
 
