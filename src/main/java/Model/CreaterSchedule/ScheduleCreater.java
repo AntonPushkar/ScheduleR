@@ -4,23 +4,22 @@ import Controller.DialogsWindow.DialogueMainWindow;
 import Entity.Brigade;
 import Entity.Day;
 import Entity.DayOff;
-import Entity.Schedule;
 import Model.CreaterSchedule.Validators.ValidateInitialData;
 import Model.CreaterSchedule.util.InformationOfDate;
 import Model.CreaterSchedule.util.DataScheduleProperty;
+import Model.FieldsOfProperties;
 import Model.Managers.BrigadeManager;
 import Model.Managers.DayManager;
 import Model.Managers.DayOffManager;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
+import net.bytebuddy.asm.Advice.Local;
 
 
-/*THIS CLASS NEEDS THE EXPLANATIONS!!! ANTON, DON'T FORGET WRITE COMMENT FOR THIS CODE!!!!*/
+/*THIS CLASS NEEDS THE EXPLANATION!!! ANTON, DON'T FORGET WRITE COMMENT FOR THIS CODE!!!!*/
 public class ScheduleCreater
 {
 
@@ -82,70 +81,112 @@ public class ScheduleCreater
     Brigade dayBrigade;
     Brigade nightBrigade;
     List<DayOff> daysOff = new DayOffManager().getListOfEntities();
-    for(int numBrigade =0; numDayOfMonth<=daysInMonth; numDayOfMonth++)
+    NumBrigade numBrigade = new NumBrigade();
+    for(; numDayOfMonth<=daysInMonth; numDayOfMonth++)
     {
       LocalDate date = LocalDate.of(year, month, numDayOfMonth);
       boolean isDayOff=isDayOff(daysOff, date);
-
-      int dayOfWeek = InformationOfDate.getDayOfWeek(year, month, numDayOfMonth);
-
-      if(dayOfWeek == Calendar.MONDAY) {
-        firstBrigadeOfLastWeek = Integer
-            .parseInt(DataScheduleProperty.readProperty("firstBrigadeOfLastWeek"));
-        numBrigade = firstBrigadeOfLastWeek;
-      }
-      else if(dayOfWeek != Calendar.MONDAY && numDayOfMonth ==1)
+      int dayOfWeek = date.getDayOfWeek().getValue();
+      if((dayOfWeek == DayOfWeek.MONDAY.getValue() ||
+          dayOfWeek != DayOfWeek.MONDAY.getValue() && numDayOfMonth == 1))
+        numBrigade.setNumBrigade(getNumBrigadeFromProperties(date, numDayOfMonth));
+      if(isDayOff)
       {
-        numBrigade=Integer.parseInt(DataScheduleProperty.readProperty("lastBrigadeInMonth"));
-      }
-      else
-
-      if(dayOfWeek == Calendar.SUNDAY)
-      {
-        isDayOff = true;
-        days.add(new Day(null, null, date, isDayOff));
+        addDaysOffToSchedule(date);
         continue;
       }
-      if(numBrigade ==brigades.size() || numBrigade >brigades.size()) numBrigade =0;
-      dayBrigade = brigades.get(numBrigade);
-      numBrigade++;
-
-      if(numBrigade ==brigades.size() || numBrigade >brigades.size()) numBrigade =0;
-      nightBrigade = brigades.get(numBrigade);
-      numBrigade++;
-
+      dayBrigade = brigades.get(numBrigade.getNumBrigade());
+      nightBrigade = brigades.get(numBrigade.getNumBrigade());
       days.add(new Day(dayBrigade, nightBrigade, date, isDayOff));
+      writeDataSchedule(date, numDayOfMonth, dayBrigade, nightBrigade);
 
-      if(dayOfWeek==Calendar.MONDAY)
-        DataScheduleProperty.writeProperty("firstBrigadeOfLastWeek",
-            String.valueOf(dayBrigade.getNumOfBrigade()));
-
-      if(dayOfWeek==Calendar.SATURDAY)
-        DataScheduleProperty.writeProperty("lastBrigadeInWeek",
-            String.valueOf(nightBrigade.getNumOfBrigade()));
-
-      if(numDayOfMonth ==daysInMonth)
-      {
-        DataScheduleProperty.writeProperty("lastBrigadeInMonth",
-            String.valueOf(nightBrigade.getNumOfBrigade()));
-        DataScheduleProperty.writeProperty("MonthOfLastSchedule", String.valueOf(month));
-      }
     }
     numDayOfMonth=1;
     return days;
   }
 
 
-  public boolean isDayOff(List<DayOff> list, LocalDate date)
+
+  public String readScheduleProperty(FieldsOfProperties e)
   {
-    for(int i=0; i<list.size(); i++)
-    {
-      if(list.get(i).equals(date))
-        return true;
-    }
-    return false;
+    return DataScheduleProperty.readProperty(e.toString());
   }
 
+  public void writeProperty(FieldsOfProperties e, String value)
+  {
+    DataScheduleProperty.writeProperty(e.toString(), value);
+  }
+
+  public void writeDataSchedule(LocalDate date, int numDayOfMonth, Brigade day, Brigade night)
+  {
+    int dayOfWeek = date.getDayOfWeek().getValue();
+    if(dayOfWeek==DayOfWeek.MONDAY.getValue())
+      writeProperty(FieldsOfProperties.FIRST_BRIGADE_LAST_WEEK, String.valueOf(day.getNumOfBrigade()));
+    else if(dayOfWeek==Calendar.SATURDAY)
+      writeProperty(FieldsOfProperties.LAST_BRIGADE_IN_WEEK, String.valueOf(night.getNumOfBrigade()));
+    if(numDayOfMonth ==daysInMonth)
+    {
+      writeProperty(FieldsOfProperties.LAST_BRIGADE_IN_MONTH, String.valueOf(night.getNumOfBrigade()));
+      writeProperty(FieldsOfProperties.MONTH_OF_LAST_SCHEDULE, String.valueOf(date.getMonthValue()));
+    }
+  }
+
+  public class NumBrigade
+  {
+    private int numBrigade;
+    public void setNumBrigade(int numBrigade)
+    {
+      if(numBrigade==new BrigadeManager().getListOfEntities().size())
+        numBrigade = 0;
+      this.numBrigade = numBrigade;
+    }
+    private int getNumBrigade()
+    {
+      int temp = numBrigade;
+      setNumBrigade(numBrigade+1);
+      return temp;
+    }
+  }
+
+
+  public int getNumBrigadeFromProperties(LocalDate date, int dayOfMonth)
+  {
+    int dayOfWeek = date.getDayOfWeek().getValue();
+    int currentBrigade=0;
+    if(dayOfWeek == DayOfWeek.MONDAY.getValue())
+    {
+      currentBrigade = Integer.parseInt(readScheduleProperty(FieldsOfProperties.FIRST_BRIGADE_LAST_WEEK));
+      return currentBrigade;
+    }
+    else if (dayOfWeek != DayOfWeek.MONDAY.getValue() && dayOfMonth == 1)
+    {
+      currentBrigade=Integer.parseInt(readScheduleProperty(FieldsOfProperties.LAST_BRIGADE_IN_MONTH));
+    }
+    return currentBrigade;
+  }
+
+
+  public void addDaysOffToSchedule(LocalDate date)
+  {
+    boolean dayOff = true;
+    List<DayOff> daysOff = new DayOffManager().getListOfEntities();
+    days.add(new Day(null, null, date,dayOff));
+  }
+
+
+  public boolean isDayOff(List<DayOff> list, LocalDate date)
+  {
+    int weekDay = date.getDayOfWeek().getValue();
+    for(int i=0; i<list.size(); i++)
+    {
+      LocalDate dayOff = list.get(i).getDate();
+      if(dayOff.equals(date) )
+        return true;
+    }
+    if(weekDay == DayOfWeek.SUNDAY.getValue())
+      return true;
+    return false;
+  }
 
 
   public int getYear() {
