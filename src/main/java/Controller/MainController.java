@@ -3,9 +3,11 @@ package Controller;
 import Controller.DialogsWindow.DialogueMainWindow;
 import Entity.Brigade;
 import Entity.Day;
+import Entity.ScheduleWrapperForTable;
 import Main.BrigadeWindow;
 import Main.SetupShiftsWindow;
 import Model.CreaterSchedule.ScheduleCreater;
+import Model.CreaterSchedule.ScheduleManager;
 import Model.Managers.BrigadeManager;
 import Model.Managers.WorkerManager;
 import java.time.LocalDate;
@@ -23,6 +25,7 @@ public class MainController
 {
 
   private ScheduleCreater scheduleCreater;
+  private ScheduleManager manager;
 
   @FXML
   private Button BrigadeButton;
@@ -31,13 +34,13 @@ public class MainController
   @FXML
   private Button PrintButton;
   @FXML
-  private TableView<Day> scheduleTable;
+  private TableView<ScheduleWrapperForTable> scheduleTable;
   @FXML
-  private TableColumn<Day, LocalDate> dateCollumn;
+  private TableColumn<ScheduleWrapperForTable, String> dateCollumn;
   @FXML
-  private TableColumn<Day, Brigade> firstShiftColumn;
+  private TableColumn<ScheduleWrapperForTable, String> firstShiftColumn;
   @FXML
-  private TableColumn<Day, Brigade> secondShiftColumn;
+  private TableColumn<ScheduleWrapperForTable, String> secondShiftColumn;
   @FXML
   private DatePicker datePickerSchedule;
   @FXML
@@ -49,20 +52,23 @@ public class MainController
 
   public void createToSchedule(ActionEvent event)
   {
-    if(scheduleCreater==null) {
+    if(manager==null) {
       DialogueMainWindow.dontChooseDate();
       return;
     }
-    fillTable();
+    else {
+      manager.createSchedule();
+      fillTable();
+    }
   }
 
 
   public void fillTable()
   {
 
-    ObservableList<Entity.Day> listOfSchedule =
-        FXCollections.observableArrayList(scheduleCreater.createSchedule());
-    dateCollumn.setCellValueFactory(new PropertyValueFactory<>("formatterDate"));
+    ObservableList<Entity.ScheduleWrapperForTable> listOfSchedule =
+        FXCollections.observableArrayList(manager.getSchedule());
+    dateCollumn.setCellValueFactory(new PropertyValueFactory<>("date"));
     firstShiftColumn.setCellValueFactory(new PropertyValueFactory<>("brigadeDay"));
     secondShiftColumn.setCellValueFactory(new PropertyValueFactory<>("brigadeNight"));
     scheduleTable.setItems(listOfSchedule);
@@ -90,6 +96,11 @@ public class MainController
   public void PickDateShedule(ActionEvent event)
   {
     LocalDate date = datePickerSchedule.getValue();
-    scheduleCreater = new ScheduleCreater(date);
+    //scheduleCreater = new ScheduleCreater(date);
+    date = LocalDate.of(date.getYear(), date.getMonthValue(), 1);
+    if(date!=null)
+    {
+      manager = new ScheduleManager(date);
+    }
   }
 }

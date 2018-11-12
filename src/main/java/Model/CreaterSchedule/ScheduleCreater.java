@@ -22,8 +22,6 @@ import java.util.List;
 public class ScheduleCreater
 {
 
-  private DayManager dayManager = new DayManager();
-
   private int numDayOfMonth = 1;
   private int year;
   private int month;
@@ -56,7 +54,7 @@ public class ScheduleCreater
       if(!ValidateInitialData.validateLastBrigadeInMonth())
         DialogueMainWindow.getInitialBrigade();
       generateDays();
-      dayManager.insertListDays(days);
+      System.out.println((days.size()));
     }
     return days;
   }
@@ -85,21 +83,21 @@ public class ScheduleCreater
     NumBrigade numBrigade = new NumBrigade();
     for(; numDayOfMonth<=daysInMonth; numDayOfMonth++)
     {
-      LocalDate date = LocalDate.of(year, month, numDayOfMonth);
-      boolean isDayOff=isDayOff(daysOff, date);
-      int dayOfWeek = date.getDayOfWeek().getValue();
+      LocalDate scheduleDate = LocalDate.of(year, month, numDayOfMonth);
+      boolean isDayOff=isDayOff(daysOff, scheduleDate);
+      int dayOfWeek = scheduleDate.getDayOfWeek().getValue();
       if((dayOfWeek == DayOfWeek.MONDAY.getValue() ||
           dayOfWeek != DayOfWeek.MONDAY.getValue() && numDayOfMonth == 1))
-        numBrigade.setNumBrigade(getNumBrigadeFromProperties(date, numDayOfMonth));
+        numBrigade.setNumBrigade(getNumBrigadeFromProperties(scheduleDate, numDayOfMonth));
       if(isDayOff)
       {
-        addDaysOffToSchedule(date);
+        addDaysOffToSchedule(scheduleDate);
         continue;
       }
       dayBrigade = brigades.get(numBrigade.getNumBrigade());
       nightBrigade = brigades.get(numBrigade.getNumBrigade());
-      days.add(new Day(dayBrigade, nightBrigade, date, isDayOff));
-      writeDataSchedule(date, numDayOfMonth, dayBrigade, nightBrigade);
+      days.add(new Day(dayBrigade, nightBrigade, scheduleDate, isDayOff));
+      writeDataSchedule(scheduleDate, numDayOfMonth, dayBrigade, nightBrigade);
 
     }
     numDayOfMonth=1;
@@ -214,4 +212,7 @@ public class ScheduleCreater
     this.numDayOfMonth = numDayOfMonth;
   }
 
+  public List<Day> getDays() {
+    return days;
+  }
 }
