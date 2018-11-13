@@ -46,10 +46,11 @@ public class DAODayManager implements DAOManager<Day> {
   {
     em.getTransaction().begin();
     Query query = em.createQuery("UPDATE Day c set c.dayOff=:dayOff, c.brigadeNight=:brigadeNight"
-        + ", c.brigadeDay=:brigadeDay");
+        + ", c.brigadeDay=:brigadeDay where c.date=:date");
     query.setParameter("dayOff", day.isDayOff());
     query.setParameter("brigadeNight", day.getBrigadeNight());
     query.setParameter("brigadeDay", day.getBrigadeDay());
+    query.setParameter("date", day.getDate());
     query.executeUpdate();
     em.getTransaction().commit();
   }

@@ -11,6 +11,8 @@ public class ScheduleWrapperForTable
   private String date;
   private Day dayOfSchedule;
 
+
+
   public ScheduleWrapperForTable(Brigade bridageDay, Brigade bridageNigth, LocalDate date, Day day)
   {
     if(bridageDay!=null)
@@ -50,6 +52,13 @@ public class ScheduleWrapperForTable
     return dayOfSchedule;
   }
 
+  public void setBrigadeDay(String brigadeDay) {
+    this.brigadeDay = brigadeDay;
+  }
+
+  public void setBrigadeNight(String brigadeNight) {
+    this.brigadeNight = brigadeNight;
+  }
   @Override
   public String toString() {
     return "Schedule{" +

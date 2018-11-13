@@ -1,8 +1,10 @@
 package Controller;
 
+import Entity.Day;
 import Entity.DayOff;
 import Entity.ScheduleWrapperForTable;
 import Model.CreaterSchedule.ScheduleManager;
+import Model.Managers.DayEntityManager;
 import Model.Managers.DayOffEntityManager;
 import java.time.LocalDate;
 import javafx.collections.FXCollections;
@@ -11,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -55,7 +58,12 @@ public class SettingsShiftController
   private TableView<DayOff> TableDatesDaysOff;
   @FXML
   private TableColumn<DayOff, String> ColumnDatesDaysOff;
-
+  @FXML
+  private CheckBox cancelFirstShift;
+  @FXML
+  private CheckBox cancelSecondShift;
+  @FXML
+  private Button buttonAcceptChangeInShifts;
   private boolean selectShifts=true;
 
   @FXML
@@ -102,6 +110,7 @@ public class SettingsShiftController
     LableIsDayOff.setVisible(!LableIsDayOff.isVisible());
     TableDatesShifts.setVisible(!TableDatesShifts.isVisible());
     TableDatesDaysOff.setVisible(!TableDatesShifts.isVisible());
+    buttonAcceptChangeInShifts.setVisible(!buttonAcceptChangeInShifts.isVisible());
   }
 
   public void fillTableShifts()
@@ -141,13 +150,12 @@ public class SettingsShiftController
 
   public void IsItemSelectShifts(MouseEvent mouseEvent)
   {
-    ScheduleWrapperForTable day = (ScheduleWrapperForTable) TableDatesShifts.getSelectionModel().getSelectedItem();
+    ScheduleWrapperForTable day = TableDatesShifts.getSelectionModel().getSelectedItem();
     displayDay(day);
   }
 
   public void displayDay(ScheduleWrapperForTable day)
   {
-
     TextFieldFirstShift.setText(String.valueOf(day.getBrigadeDay()));
     TextFieldSecondShift.setText(String.valueOf(day.getBrigadeNight()));
     String isDayOff = "";
@@ -162,5 +170,29 @@ public class SettingsShiftController
   {
     DayOff day = TableDatesDaysOff.getSelectionModel().getSelectedItem();
     System.out.println(day.getDate());
+  }
+
+  public void BtnAcceptChangeInShifts(ActionEvent actionEvent)
+  {
+    ScheduleWrapperForTable wrapperDay = TableDatesShifts.getSelectionModel().getSelectedItem();
+    if(wrapperDay!=null) {
+      Day day = wrapperDay.getDayOfSchedule();
+      if (cancelFirstShift.isSelected())
+        day.setCancelFirstShift(true);
+      if (cancelSecondShift.isSelected())
+        day.setCancelSecondShift(true);
+      DayEntityManager dayManager = new DayEntityManager();
+      dayManager.update(day);
+      changeWrapperDay(day, wrapperDay);
+      displayDay(wrapperDay);
+    }
+  }
+
+  private void changeWrapperDay(Day day, ScheduleWrapperForTable wrapper)
+  {
+    if(day.isCancelFirstShift())
+      wrapper.setBrigadeDay("Выходной");
+    if(day.isCancelSecondShift())
+      wrapper.setBrigadeNight("Выходной");
   }
 }

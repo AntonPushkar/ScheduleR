@@ -37,6 +37,7 @@ public class DayEntityManager implements EntityManager<Day>
   @Override
   public void update(Day day)
   {
+    if(day.isCancelSecondShift()&&day.isCancelFirstShift()) day.setDayOff(true);
     manager.update(day);
   }
 }
