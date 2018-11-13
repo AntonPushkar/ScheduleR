@@ -4,7 +4,7 @@ import Entity.Day;
 import Entity.DayOff;
 import Entity.ScheduleWrapperForTable;
 import Model.CreaterSchedule.ScheduleManager;
-import Model.Managers.DayEntityManager;
+import Model.EditCreateDaysOff;
 import Model.Managers.DayOffEntityManager;
 import java.time.LocalDate;
 import javafx.collections.FXCollections;
@@ -63,7 +63,10 @@ public class SettingsShiftController
   @FXML
   private CheckBox cancelSecondShift;
   @FXML
-  private Button buttonAcceptChangeInShifts;
+  private CheckBox setDayOff;
+  @FXML
+  private Button ButtonAcceptChangeInShifts;
+
   private boolean selectShifts=true;
 
   @FXML
@@ -82,9 +85,11 @@ public class SettingsShiftController
   {
     if(selectShifts) {
       invertElements();
+      cancelFirstShift.setSelected(false);
+      cancelSecondShift.setSelected(false);
       selectShifts = false;
       if(TableDatesDaysOff.getItems().isEmpty())
-        fillTableShifts();
+        fillTableDaysOff();
     }
   }
 
@@ -92,6 +97,8 @@ public class SettingsShiftController
   {
      if(!selectShifts) {
         invertElements();
+       cancelFirstShift.setSelected(false);
+       cancelSecondShift.setSelected(false);
         selectShifts = true;
         if(TableDatesShifts.getItems().isEmpty())
           fillTableShifts();
@@ -110,7 +117,8 @@ public class SettingsShiftController
     LableIsDayOff.setVisible(!LableIsDayOff.isVisible());
     TableDatesShifts.setVisible(!TableDatesShifts.isVisible());
     TableDatesDaysOff.setVisible(!TableDatesShifts.isVisible());
-    buttonAcceptChangeInShifts.setVisible(!buttonAcceptChangeInShifts.isVisible());
+    ButtonAcceptChangeInShifts.setVisible(!ButtonAcceptChangeInShifts.isVisible());
+    setDayOff.setVisible(!setDayOff.isVisible());
   }
 
   public void fillTableShifts()
@@ -142,7 +150,7 @@ public class SettingsShiftController
     if(date != null)
     {
       System.out.println("OK");
-      DayOff dayOff = new DayOff(date);
+      DayOff dayOff = new DayOff(date, setDayOff.isSelected(),  cancelFirstShift.isSelected(), cancelSecondShift.isSelected());
       dayOffManager.insert(dayOff);
       fillTableDaysOff();
     }
@@ -169,7 +177,6 @@ public class SettingsShiftController
   public void IsItemSelectDaysOff(MouseEvent mouseEvent)
   {
     DayOff day = TableDatesDaysOff.getSelectionModel().getSelectedItem();
-    System.out.println(day.getDate());
   }
 
   public void BtnAcceptChangeInShifts(ActionEvent actionEvent)
@@ -181,8 +188,7 @@ public class SettingsShiftController
         day.setCancelFirstShift(true);
       if (cancelSecondShift.isSelected())
         day.setCancelSecondShift(true);
-      DayEntityManager dayManager = new DayEntityManager();
-      dayManager.update(day);
+      EditCreateDaysOff.analizeDayOff(day);
       changeWrapperDay(day, wrapperDay);
       displayDay(wrapperDay);
     }

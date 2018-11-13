@@ -31,12 +31,13 @@
             <Label fx:id="LableIsDayOff" layoutX="14.0" layoutY="112.0" text="Выходной" />
             <TextField fx:id="TextFieldFirstShift" editable="false" layoutX="183.0" layoutY="52.0" />
             <TextField fx:id="TextFieldSecondShift" editable="false" layoutX="183.0" layoutY="80.0" />
-            <TextField fx:id="TextFieldIsDayOff" editable="false" layoutX="183.0" layoutY="108.0" />
+            <TextField fx:id="TextFieldIsDayOff" editable="false" layoutX="183.0" layoutY="108.0" prefHeight="17.0" prefWidth="149.0" />
             <DatePicker fx:id="DaysOffDatePicker" layoutX="87.0" layoutY="44.0" promptText="Выбрать дату выходного" visible="false" />
             <Button fx:id="ButtonAcceptDayOff" layoutX="300.0" layoutY="349.0" mnemonicParsing="false" onAction="#BtnAcceptDayOff" text="Ок" visible="false" />
-            <CheckBox fx:id="cancelFirstShift" layoutX="183.0" layoutY="149.0" mnemonicParsing="false" text="Отменить 1 смену" />
-            <CheckBox fx:id="cancelSecondShift" layoutX="183.0" layoutY="177.0" mnemonicParsing="false" text="Отменить 2 смену" />
-            <Button fx:id="buttonAcceptChangeInShifts" layoutX="300.0" layoutY="349.0" mnemonicParsing="false" onAction="#BtnAcceptChangeInShifts" text="Ок" />
+            <CheckBox fx:id="cancelFirstShift" layoutX="183.0" layoutY="171.0" mnemonicParsing="false" text="Отменить 1 смену" />
+            <CheckBox fx:id="cancelSecondShift" layoutX="183.0" layoutY="196.0" mnemonicParsing="false" text="Отменить 2 смену" />
+            <Button fx:id="ButtonAcceptChangeInShifts" layoutX="300.0" layoutY="349.0" mnemonicParsing="false" onAction="#BtnAcceptChangeInShifts" text="Ок" />
+            <CheckBox fx:id="setDayOff" layoutX="183.0" layoutY="146.0" mnemonicParsing="false" text="Выходной" visible="false" />
          </children>
       </Pane>
       <!--suppress JavaFxUnresolvedFxIdReference -->

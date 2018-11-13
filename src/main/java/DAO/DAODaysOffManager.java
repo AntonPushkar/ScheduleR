@@ -23,7 +23,8 @@ public class DAODaysOffManager implements DAOManager<DayOff>  {
   @Override
   public List<DayOff> get()
   {
-    TypedQuery<DayOff> query = em.createQuery("select new DayOff(c.dateOfDayOff) from DayOff c",
+    TypedQuery<DayOff> query = em.createQuery("select new DayOff"
+            + "(c.dateOfDayOff, c.isDayOff, c.cancelSeocndShift, c.cancelFirstShift) from DayOff c",
         DayOff.class);
     return query.getResultList();
   }
@@ -39,7 +40,17 @@ public class DAODaysOffManager implements DAOManager<DayOff>  {
   }
 
   @Override
-  public void update(DayOff dayOff) {
+  public void update(DayOff dayOff)
+  {
+    em.getTransaction().begin();
+    Query query = em.createQuery("UPDATE DayOff c set c.cancelFirstShift=:isCancelFirstShift,"
+        + "c.cancelSeocndShift=:isCancelSecondShift, c.isDayOff=:isDayOff where c.dateOfDayOff =:date");
+    query.setParameter("isCancelFirstShift", dayOff.isCancelFirstShift());
+    query.setParameter("isCancelSecondShift", dayOff.isCancelSeocndShift());
+    query.setParameter("isDayOff", dayOff.isDayOff());
+    query.setParameter("date", dayOff.getDateOfDayOff());
+    query.executeUpdate();
+    em.getTransaction().commit();
 
   }
 }

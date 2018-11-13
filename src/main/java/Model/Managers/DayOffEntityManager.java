@@ -28,7 +28,9 @@ public class DayOffEntityManager implements EntityManager<DayOff>
   }
 
   @Override
-  public void update(DayOff dayOff) {
+  public void update(DayOff dayOff)
+  {
+    manager.update(dayOff);
 
   }
 }

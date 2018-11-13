@@ -16,11 +16,19 @@ public class DayOff
   private LocalDate dateOfDayOff;
   @Transient
   private String date;
+  private boolean cancelFirstShift = false;
+  private boolean cancelSeocndShift = false;
+  private boolean isDayOff = false;
 
-  public DayOff(LocalDate date) {
+
+
+  public DayOff(LocalDate date, boolean isDayOff, boolean cancelFirstShift, boolean cancelSeocndChange) {
     this.dateOfDayOff = date;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.YYYY");
     this.date = date.format(formatter);
+    this.cancelFirstShift = cancelFirstShift;
+    this.cancelSeocndShift =cancelSeocndChange;
+    this.isDayOff = isDayOff;
   }
 
   public DayOff()
@@ -35,4 +43,29 @@ public class DayOff
   public String getDate() {
     return date;
   }
+
+  public boolean isCancelFirstShift() {
+    return cancelFirstShift;
+  }
+
+  public void setCancelFirstShift(boolean cancelFirstChange) {
+    this.cancelFirstShift = cancelFirstChange;
+  }
+
+  public boolean isCancelSeocndShift() {
+    return cancelSeocndShift;
+  }
+
+  public void setCancelSeocndShift(boolean cancelSeocndChange) {
+    this.cancelSeocndShift = cancelSeocndChange;
+  }
+
+  public boolean isDayOff() {
+    return isDayOff;
+  }
+
+  public void setDayOff(boolean dayOff) {
+    isDayOff = dayOff;
+  }
 }
+
