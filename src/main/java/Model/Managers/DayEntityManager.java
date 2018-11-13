@@ -5,7 +5,7 @@ import DAO.DAOManager;
 import Entity.Day;
 import java.util.List;
 
-public class DayManager implements Manager<Day>
+public class DayEntityManager implements EntityManager<Day>
 {
   private DAOManager<Day> manager = new DAODayManager();
   public void insertListDays(List<Day> list)
@@ -23,7 +23,7 @@ public class DayManager implements Manager<Day>
   }
 
   @Override
-  public List<Day> getListOfEntities()
+  public List<Day> getListEntities()
   {
     return manager.get();
   }

@@ -5,7 +5,7 @@ import DAO.DAOManager;
 import Entity.DayOff;
 import java.util.List;
 
-public class DayOffManager implements Manager<DayOff>
+public class DayOffEntityManager implements EntityManager<DayOff>
 {
 
   DAOManager<DayOff> manager = new DAODaysOffManager();
@@ -17,7 +17,7 @@ public class DayOffManager implements Manager<DayOff>
   }
 
   @Override
-  public List<DayOff> getListOfEntities() {
+  public List<DayOff> getListEntities() {
     return manager.get();
   }
 

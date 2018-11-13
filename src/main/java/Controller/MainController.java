@@ -1,15 +1,12 @@
 package Controller;
 
 import Controller.DialogsWindow.DialogueMainWindow;
-import Entity.Brigade;
-import Entity.Day;
 import Entity.ScheduleWrapperForTable;
 import Main.BrigadeWindow;
 import Main.SetupShiftsWindow;
-import Model.CreaterSchedule.ScheduleCreater;
 import Model.CreaterSchedule.ScheduleManager;
-import Model.Managers.BrigadeManager;
-import Model.Managers.WorkerManager;
+import Model.Managers.BrigadeEntityManager;
+import Model.Managers.WorkerEntityManager;
 import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,8 +21,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class MainController
 {
 
-  private ScheduleCreater scheduleCreater;
-  private ScheduleManager manager;
+  private ScheduleManager scheduleManager = ScheduleManager.getScheduleManager();
+  private LocalDate date;
 
   @FXML
   private Button BrigadeButton;
@@ -46,18 +43,18 @@ public class MainController
   @FXML
   public void initialize()
   {
-    new WorkerManager().getListOfEntities();
-    new BrigadeManager().fillBrigade();
+    new WorkerEntityManager().getListEntities();
+    new BrigadeEntityManager().fillBrigade();
   }
 
   public void createToSchedule(ActionEvent event)
   {
-    if(manager==null) {
+    if(date ==null) {
       DialogueMainWindow.dontChooseDate();
       return;
     }
     else {
-      manager.createSchedule();
+      generateSchedule();
       fillTable();
     }
   }
@@ -67,7 +64,7 @@ public class MainController
   {
 
     ObservableList<Entity.ScheduleWrapperForTable> listOfSchedule =
-        FXCollections.observableArrayList(manager.getSchedule());
+        FXCollections.observableArrayList(scheduleManager.getListEntities());
     dateCollumn.setCellValueFactory(new PropertyValueFactory<>("date"));
     firstShiftColumn.setCellValueFactory(new PropertyValueFactory<>("brigadeDay"));
     secondShiftColumn.setCellValueFactory(new PropertyValueFactory<>("brigadeNight"));
@@ -93,14 +90,18 @@ public class MainController
 
   }
 
-  public void PickDateShedule(ActionEvent event)
+  public void getDate(ActionEvent event)
   {
-    LocalDate date = datePickerSchedule.getValue();
-    //scheduleCreater = new ScheduleCreater(date);
-    date = LocalDate.of(date.getYear(), date.getMonthValue(), 1);
-    if(date!=null)
+    date = datePickerSchedule.getValue();
+  }
+
+  public void generateSchedule()
+  {
+    this.date = LocalDate.of(date.getYear(), date.getMonthValue(), 1);
+    if(this.date!=null)
     {
-      manager = new ScheduleManager(date);
+      scheduleManager.createSchedule(this.date);
     }
   }
+
 }

@@ -1,7 +1,7 @@
 package Model.CreaterSchedule.Validators;
 
 import Model.CreaterSchedule.util.DataScheduleProperty;
-import Model.Managers.BrigadeManager;
+import Model.Managers.BrigadeEntityManager;
 
 public class ValidateInitialData
 {
@@ -38,7 +38,7 @@ public class ValidateInitialData
         {
           return false;
         }
-        else if(numBrigade > -1 && numBrigade<= (new BrigadeManager().getListOfEntities().size()))
+        else if(numBrigade > -1 && numBrigade<= (new BrigadeEntityManager().getListEntities().size()))
         {
           result = true;
         }

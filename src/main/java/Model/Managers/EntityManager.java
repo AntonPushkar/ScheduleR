@@ -1,11 +1,10 @@
 package Model.Managers;
 
-import java.util.List;
+import Model.Manager;
 
-public interface Manager<T>
+public interface EntityManager<T> extends Manager
 {
   void insert(T t);
-  List<T> getListOfEntities();
   void remove(T t);
   void update(T t);
 }

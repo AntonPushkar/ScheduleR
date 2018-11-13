@@ -6,11 +6,11 @@ import Entity.Brigade;
 import Entity.Worker;
 import java.util.List;
 
-public class WorkerManager implements Manager<Worker> {
+public class WorkerEntityManager implements EntityManager<Worker> {
 
   private DAOManager<Worker> workerManager = new DAOWorkerManager();
-  private BrigadeManager brigadeManager = new BrigadeManager();
-  private List<Brigade> listOfBrigade = brigadeManager.getListOfEntities();
+  private BrigadeEntityManager brigadeManager = new BrigadeEntityManager();
+  private List<Brigade> listOfBrigade = brigadeManager.getListEntities();
 
   @Override
   public void insert(Worker worker) {
@@ -18,7 +18,7 @@ public class WorkerManager implements Manager<Worker> {
   }
 
   @Override
-  public List<Worker> getListOfEntities() {
+  public List<Worker> getListEntities() {
     List<Worker> listWorker;
     return listWorker =workerManager.get();
   }

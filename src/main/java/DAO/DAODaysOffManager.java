@@ -23,7 +23,7 @@ public class DAODaysOffManager implements DAOManager<DayOff>  {
   @Override
   public List<DayOff> get()
   {
-    TypedQuery<DayOff> query = em.createQuery("select new DayOff(c.date) from DayOff c",
+    TypedQuery<DayOff> query = em.createQuery("select new DayOff(c.dateOfDayOff) from DayOff c",
         DayOff.class);
     return query.getResultList();
   }
@@ -32,8 +32,8 @@ public class DAODaysOffManager implements DAOManager<DayOff>  {
   public void remove(DayOff dayOff)
   {
     em.getTransaction().begin();
-    Query query = em.createQuery("delete from DayOff c where c.date=:date");
-    query.setParameter("date", dayOff.getDate());
+    Query query = em.createQuery("delete from DayOff c where c.dateOfDayOff=:date");
+    query.setParameter("date", dayOff.getDateOfDayOff());
     query.executeUpdate();
     em.getTransaction().commit();
   }

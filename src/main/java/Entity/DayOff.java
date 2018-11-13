@@ -13,15 +13,14 @@ public class DayOff
 {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
-  private LocalDate date;
+  private LocalDate dateOfDayOff;
   @Transient
-  private String formatterDate;
+  private String date;
 
   public DayOff(LocalDate date) {
-    this.date = date;
+    this.dateOfDayOff = date;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.YYYY");
-    this.formatterDate = date.format(formatter);
-
+    this.date = date.format(formatter);
   }
 
   public DayOff()
@@ -29,11 +28,11 @@ public class DayOff
 
   }
 
-  public LocalDate getDate() {
-    return date;
+  public LocalDate getDateOfDayOff() {
+    return dateOfDayOff;
   }
 
-  public String getFormattenDate() {
-    return formatterDate;
+  public String getDate() {
+    return date;
   }
 }

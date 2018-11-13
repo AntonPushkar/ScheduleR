@@ -2,7 +2,7 @@ package Controller.DialogsWindow;
 
 import Entity.Brigade;
 import Model.CreaterSchedule.util.DataScheduleProperty;
-import Model.Managers.BrigadeManager;
+import Model.Managers.BrigadeEntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +20,7 @@ public class DialogueMainWindow
   public static int getInitialBrigade()
   {
     int choosenBrigade = -1;
-    List<Brigade> brigades = new BrigadeManager().getListOfEntities();
+    List<Brigade> brigades = new BrigadeEntityManager().getListEntities();
 
     List<String> choices = new ArrayList<>();
     for (Brigade brigade : brigades) {

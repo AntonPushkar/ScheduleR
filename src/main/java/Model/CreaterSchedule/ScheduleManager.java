@@ -3,23 +3,35 @@ package Model.CreaterSchedule;
 import Entity.Brigade;
 import Entity.Day;
 import Entity.ScheduleWrapperForTable;
-import Model.Managers.DayManager;
+import Model.Manager;
+import Model.Managers.DayEntityManager;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScheduleManager
+public class ScheduleManager implements Manager<ScheduleWrapperForTable>
 {
   private ScheduleCreater creater;
-  private LocalDate date;
-  private DayManager dayManager = new DayManager();
+  private DayEntityManager dayManager = new DayEntityManager();
+  private List<ScheduleWrapperForTable> listScheduleWrapper = new ArrayList<>();
+  private static ScheduleManager manager = new ScheduleManager();
 
-  public List<ScheduleWrapperForTable> getSchedule()
+
+  public void createSchedule(LocalDate date)
   {
-    List<Day> listOfDays;
-    List<ScheduleWrapperForTable> listScheduleWrapper = new ArrayList<>();
-    if(creater!=null) {
-      listOfDays = creater.getDays();
+    if(date!=null)
+      creater=new ScheduleCreater(date);
+    else
+      return;
+    creater.createSchedule();
+    fillList();
+  }
+
+  private void fillList()
+  {
+      if(!listScheduleWrapper.isEmpty())
+        listScheduleWrapper.clear();
+      List<Day> listOfDays = creater.getDays();
       dayManager.insertListDays(listOfDays);
       for (int i = 0; i < listOfDays.size(); i++)
       {
@@ -30,22 +42,19 @@ public class ScheduleManager
         listScheduleWrapper.add(new ScheduleWrapperForTable(brDay, brNight, date, day));
       }
     }
-    else return listScheduleWrapper;
 
+  @Override
+  public List<ScheduleWrapperForTable> getListEntities()
+  {
+    System.out.println(listScheduleWrapper.size());
     return listScheduleWrapper;
   }
 
-  public ScheduleManager(LocalDate date)
-  {
-    this.date = date;
-  }
+  private ScheduleManager()
+  {}
 
-  public void createSchedule()
+  public static ScheduleManager getScheduleManager()
   {
-    if(date!=null)
-      creater=new ScheduleCreater(this.date);
-    else
-      return;
-    creater.createSchedule();
+    return manager;
   }
 }

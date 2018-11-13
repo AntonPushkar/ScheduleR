@@ -3,7 +3,7 @@ package Controller;
 import Controller.DialogsWindow.DialogueWindowIErrorBrigade;
 import Controller.Validators.ValidateWorkerFields;
 import Entity.Worker;
-import Model.Managers.WorkerManager;
+import Model.Managers.WorkerEntityManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,7 +19,7 @@ import javafx.scene.input.MouseEvent;
 
 public class BrigadeController
 {
-  private WorkerManager WorkMan = new WorkerManager();
+  private WorkerEntityManager WorkMan = new WorkerEntityManager();
   @FXML
   private Button ButtonAdd;
   @FXML
@@ -60,7 +60,7 @@ public class BrigadeController
 
   public void fillTable()
   {
-    ObservableList<Entity.Worker> listOfWorkers = FXCollections.observableArrayList(WorkMan.getListOfEntities());
+    ObservableList<Entity.Worker> listOfWorkers = FXCollections.observableArrayList(WorkMan.getListEntities());
     ColumnFIO.setCellValueFactory(new PropertyValueFactory<>("fullName"));
     ColumnBrigade.setCellValueFactory(new PropertyValueFactory<>("numOfBrigade"));
     TableBrigade.setItems(listOfWorkers);

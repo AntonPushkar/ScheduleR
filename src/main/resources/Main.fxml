@@ -53,6 +53,6 @@
   <Button fx:id="PrintButton" layoutX="421.0" layoutY="419.0" mnemonicParsing="false"
     onAction="#PrintBtn" prefHeight="25.0" prefWidth="61.0" text="Печать"
     AnchorPane.rightAnchor="18.0"/>
-  <DatePicker fx:id="datePickerSchedule" layoutX="345.0" layoutY="350.0" onAction="#PickDateShedule"
+  <DatePicker fx:id="datePickerSchedule" layoutX="345.0" layoutY="350.0" onAction="#getDate"
     prefHeight="25.0" prefWidth="137.0"/>
 </AnchorPane>

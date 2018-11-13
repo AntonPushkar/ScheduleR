@@ -5,12 +5,11 @@ import Entity.Brigade;
 import Entity.Day;
 import Entity.DayOff;
 import Model.CreaterSchedule.Validators.ValidateInitialData;
-import Model.CreaterSchedule.util.InformationOfDate;
 import Model.CreaterSchedule.util.DataScheduleProperty;
+import Model.CreaterSchedule.util.InformationOfDate;
 import Model.FieldsOfProperties;
-import Model.Managers.BrigadeManager;
-import Model.Managers.DayManager;
-import Model.Managers.DayOffManager;
+import Model.Managers.BrigadeEntityManager;
+import Model.Managers.DayOffEntityManager;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -75,11 +74,11 @@ public class ScheduleCreater
    * Because you don't understand this code in a future!!!!*/
   public List<Day> generateDays()
   {
-    List<Brigade> brigades= new BrigadeManager().getListOfEntities();
+    List<Brigade> brigades= new BrigadeEntityManager().getListEntities();
     int firstBrigadeOfLastWeek;
     Brigade dayBrigade;
     Brigade nightBrigade;
-    List<DayOff> daysOff = new DayOffManager().getListOfEntities();
+    List<DayOff> daysOff = new DayOffEntityManager().getListEntities();
     NumBrigade numBrigade = new NumBrigade();
     for(; numDayOfMonth<=daysInMonth; numDayOfMonth++)
     {
@@ -135,7 +134,7 @@ public class ScheduleCreater
     private int numBrigade;
     public void setNumBrigade(int numBrigade)
     {
-      if(numBrigade==new BrigadeManager().getListOfEntities().size())
+      if(numBrigade==new BrigadeEntityManager().getListEntities().size())
         numBrigade = 0;
       this.numBrigade = numBrigade;
     }
@@ -168,7 +167,7 @@ public class ScheduleCreater
   public void addDaysOffToSchedule(LocalDate date)
   {
     boolean dayOff = true;
-    List<DayOff> daysOff = new DayOffManager().getListOfEntities();
+    List<DayOff> daysOff = new DayOffEntityManager().getListEntities();
     days.add(new Day(null, null, date,dayOff));
   }
 
@@ -177,7 +176,7 @@ public class ScheduleCreater
   {
     int weekDay = date.getDayOfWeek().getValue();
     for (DayOff aList : list) {
-      LocalDate dayOff = aList.getDate();
+      LocalDate dayOff = aList.getDateOfDayOff();
       if (dayOff.equals(date)) {
         return true;
       }

@@ -5,7 +5,7 @@ import DAO.DAOManager;
 import Entity.Brigade;
 import java.util.List;
 
-public class BrigadeManager implements Manager<Brigade>
+public class BrigadeEntityManager implements EntityManager<Brigade>
 {
   private List<Brigade> listOfBrigade;
   private DAOManager<Brigade> brigadeManager = new DAOBrigadeManager();
@@ -18,7 +18,7 @@ public class BrigadeManager implements Manager<Brigade>
   }
 
   @Override
-  public List<Brigade> getListOfEntities()
+  public List<Brigade> getListEntities()
   {
     listOfBrigade=brigadeManager.get();
     if(listOfBrigade.isEmpty()) {
