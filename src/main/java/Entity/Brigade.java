@@ -20,9 +20,9 @@ public class Brigade
   @Column(name = "numOfBrigade", unique = true)
   private int numOfBrigade;
   @OneToOne
-  Worker brigadier;
+  private Worker brigadier;
   @OneToMany(fetch = FetchType.EAGER, targetEntity = Worker.class, cascade = CascadeType.ALL)
-  private List<Worker> listOfWorkersInBrigade = new ArrayList<>();
+  private final List<Worker> listOfWorkersInBrigade = new ArrayList<>();
   public Worker getBrigadier() {
     return brigadier;
   }
@@ -48,8 +48,8 @@ public class Brigade
     return numOfBrigade;
   }
 
-  public void setNumOfBrigade(int numoFBrigade) {
-    this.numOfBrigade = numoFBrigade;
+  public void setNumOfBrigade(int numFBrigade) {
+    this.numOfBrigade = numFBrigade;
   }
 
   public List<Worker> getListOfWorkersInBrigade() {

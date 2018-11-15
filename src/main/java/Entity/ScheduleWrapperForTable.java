@@ -13,15 +13,15 @@ public class ScheduleWrapperForTable
 
 
 
-  public ScheduleWrapperForTable(Brigade bridageDay, Brigade bridageNigth, LocalDate date, Day day)
+  public ScheduleWrapperForTable(Brigade brigadeDay, Brigade brigadeNight, LocalDate date, Day day)
   {
-    if(bridageDay!=null)
-      this.brigadeDay = bridageDay.toString();
+    if(brigadeDay !=null)
+      this.brigadeDay = brigadeDay.toString();
     else
       this.brigadeDay = "Выходной";
 
-    if(bridageDay!=null)
-      this.brigadeNight = bridageNigth.toString();
+    if(brigadeNight !=null)
+      this.brigadeNight = brigadeNight.toString();
     else
       this.brigadeNight = "Выходной";
 

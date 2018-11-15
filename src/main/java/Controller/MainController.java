@@ -7,6 +7,7 @@ import Main.SetupShiftsWindow;
 import Model.CreaterSchedule.ScheduleManager;
 import Model.Managers.BrigadeEntityManager;
 import Model.Managers.WorkerEntityManager;
+import Model.ReportOfSchedule;
 import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,11 +18,13 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import net.sf.jasperreports.engine.JRException;
+
 
 public class MainController
 {
 
-  private ScheduleManager scheduleManager = ScheduleManager.getScheduleManager();
+  private final ScheduleManager scheduleManager = ScheduleManager.getScheduleManager();
   private LocalDate date;
 
   @FXML
@@ -50,8 +53,7 @@ public class MainController
   public void createToSchedule(ActionEvent event)
   {
     if(date ==null) {
-      DialogueMainWindow.dontChooseDate();
-      return;
+      DialogueMainWindow.notChooseDate();
     }
     else {
       generateSchedule();
@@ -60,7 +62,7 @@ public class MainController
   }
 
 
-  public void fillTable()
+  private void fillTable()
   {
 
     ObservableList<Entity.ScheduleWrapperForTable> listOfSchedule =
@@ -87,7 +89,11 @@ public class MainController
 
   public void PrintBtn(ActionEvent event)
   {
-
+    try {
+      ReportOfSchedule.print();
+    } catch (JRException e) {
+      e.printStackTrace();
+    }
   }
 
   public void getDate(ActionEvent event)
@@ -95,7 +101,7 @@ public class MainController
     date = datePickerSchedule.getValue();
   }
 
-  public void generateSchedule()
+  private void generateSchedule()
   {
     this.date = LocalDate.of(date.getYear(), date.getMonthValue(), 1);
     if(this.date!=null)

@@ -19,7 +19,7 @@ import javafx.scene.input.MouseEvent;
 
 public class BrigadeController
 {
-  private WorkerEntityManager WorkMan = new WorkerEntityManager();
+  private final WorkerEntityManager WorkMan = new WorkerEntityManager();
   @FXML
   private Button ButtonAdd;
   @FXML
@@ -37,7 +37,7 @@ public class BrigadeController
   @FXML
   private TextField TextFieldSecName;
   @FXML
-  private TextField TextFieldPerssonelNum;
+  private TextField TextFieldPersonnelNum;
   @FXML
   private TextField TextFieldNumBrigade;
   @FXML
@@ -58,7 +58,7 @@ public class BrigadeController
   }
 
 
-  public void fillTable()
+  private void fillTable()
   {
     ObservableList<Entity.Worker> listOfWorkers = FXCollections.observableArrayList(WorkMan.getListEntities());
     ColumnFIO.setCellValueFactory(new PropertyValueFactory<>("fullName"));
@@ -73,7 +73,7 @@ public class BrigadeController
   {
     if(TableBrigade.getSelectionModel().getSelectedItem() != null)
     {
-      DispalyInformation(TableBrigade.getSelectionModel().getSelectedItem());
+      DisplayInformation(TableBrigade.getSelectionModel().getSelectedItem());
       ButtonEdit.setDisable(false);
     }
   }
@@ -90,7 +90,7 @@ public class BrigadeController
       DialogueWindowIErrorBrigade.AlertNotSelected();
   }
 
-  public void DispalyInformation(Worker worker)
+  private void DisplayInformation(Worker worker)
   {
     String name=worker.getName();
     String secName=worker.getSecName();
@@ -98,7 +98,7 @@ public class BrigadeController
     String numOfBrigade= String.valueOf(worker.getNumOfBrigade());
     TextFieldName.setText(name);
     TextFieldSecName.setText(secName);
-    TextFieldPerssonelNum.setText(personnelNum);
+    TextFieldPersonnelNum.setText(personnelNum);
     TextFieldNumBrigade.setText(numOfBrigade);
     String TextIsBrigadier;
     if(!worker.isBrigadier())
@@ -112,12 +112,12 @@ public class BrigadeController
   {
     TextFieldName.clear();
     TextFieldSecName.clear();
-    TextFieldPerssonelNum.clear();
+    TextFieldPersonnelNum.clear();
     TextFieldNumBrigade.clear();
     isBrigadier.clear();
     TextFieldName.setPromptText("");
     TextFieldSecName.setPromptText("");
-    TextFieldPerssonelNum.setPromptText("");
+    TextFieldPersonnelNum.setPromptText("");
     TextFieldNumBrigade.setPromptText("");
     isBrigadier.setPromptText("");
   }
@@ -133,7 +133,7 @@ public class BrigadeController
     ButtonAcceptAddWorker.setVisible(true);
     TextFieldName.setPromptText("Введите имя");
     TextFieldSecName.setPromptText("Введите фамилию");
-    TextFieldPerssonelNum.setPromptText("Введите персональный номер");
+    TextFieldPersonnelNum.setPromptText("Введите персональный номер");
     TextFieldNumBrigade.setPromptText("Введите номер бригады");
     AssignBrigadier.setVisible(true);
     setEditableTextFields(true);
@@ -159,7 +159,7 @@ public class BrigadeController
       boolean isBrigadier = AssignBrigadier.isSelected();
       int numOfBrigade=Integer.parseInt(TextFieldNumBrigade.getText());
       Worker worker = new Worker(TextFieldName.getText(), TextFieldSecName.getText(),
-          numOfBrigade, TextFieldPerssonelNum.getText(), isBrigadier);
+          numOfBrigade, TextFieldPersonnelNum.getText(), isBrigadier);
       WorkMan.insert(worker);
       fillTable();
       cancel();
@@ -174,7 +174,7 @@ public class BrigadeController
   {
     TextFieldName.setEditable(inverse);
     TextFieldSecName.setEditable(inverse);
-    TextFieldPerssonelNum.setEditable(inverse);
+    TextFieldPersonnelNum.setEditable(inverse);
     TextFieldNumBrigade.setEditable(inverse);
   }
 
@@ -213,7 +213,7 @@ public class BrigadeController
     TableBrigade.setDisable(true);
     AssignBrigadier.setVisible(true);
     setEditableTextFields(true);
-    TextFieldPerssonelNum.setEditable(false);
+    TextFieldPersonnelNum.setEditable(false);
 
   }
 
@@ -221,7 +221,7 @@ public class BrigadeController
   {
     String name= TextFieldName.getText();
     String secName=TextFieldSecName.getText();
-    String personnelNum=TextFieldPerssonelNum.getText();
+    String personnelNum= TextFieldPersonnelNum.getText();
     String numOfBrigadeStr = TextFieldNumBrigade.getText();
     return ValidateWorkerFields.validateWorker(name, secName, numOfBrigadeStr, personnelNum);
   }
@@ -233,7 +233,7 @@ public class BrigadeController
       boolean isBrigadier = AssignBrigadier.isSelected();
       int numOfBrigade=Integer.parseInt(TextFieldNumBrigade.getText());
       Worker worker = new Worker(TextFieldName.getText(), TextFieldSecName.getText(),
-          numOfBrigade, TextFieldPerssonelNum.getText(), isBrigadier);
+          numOfBrigade, TextFieldPersonnelNum.getText(), isBrigadier);
       WorkMan.update(worker);
       fillTable();
       cancel();

@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 
 public class DAODayManager implements DAOManager<Day> {
 
-  private EntityManager em = aDAOManager.getEm();
+  private final EntityManager em = DAOManager.em();
   @Override
   public void insert(Day day)
   {

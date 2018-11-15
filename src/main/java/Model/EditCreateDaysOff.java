@@ -9,10 +9,10 @@ import java.util.List;
 
 public class EditCreateDaysOff
 {
-  private static DayOffEntityManager dayOffManager = new DayOffEntityManager();
+  private static final DayOffEntityManager dayOffManager = new DayOffEntityManager();
   private static List<DayOff> daysOff;
-  private static DayEntityManager dayManager = new DayEntityManager();
-  public static void analizeDayOff(Day day)
+  private static final DayEntityManager dayManager = new DayEntityManager();
+  public static void analyzeDayOff(Day day)
   {
     if(day.isCancelSecondShift() && day.isCancelSecondShift())
       day.setDayOff(true);
@@ -52,7 +52,7 @@ public class EditCreateDaysOff
   {
     for(DayOff x : daysOff)
     {
-      if(x.getDateOfDayOff().equals(date))
+      if(x.getDate().equals(date))
         return x;
     }
     return null;

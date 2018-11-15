@@ -13,21 +13,21 @@ public class DayOff
 {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
-  private LocalDate dateOfDayOff;
+  private LocalDate date;
   @Transient
-  private String date;
+  private String strDate;
   private boolean cancelFirstShift = false;
-  private boolean cancelSeocndShift = false;
+  private boolean cancelSecondShift = false;
   private boolean isDayOff = false;
 
 
 
-  public DayOff(LocalDate date, boolean isDayOff, boolean cancelFirstShift, boolean cancelSeocndChange) {
-    this.dateOfDayOff = date;
+  public DayOff(LocalDate date, boolean isDayOff, boolean cancelFirstShift, boolean cancelSecondChange) {
+    this.date = date;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.YYYY");
-    this.date = date.format(formatter);
+    this.strDate = date.format(formatter);
     this.cancelFirstShift = cancelFirstShift;
-    this.cancelSeocndShift =cancelSeocndChange;
+    this.cancelSecondShift = cancelSecondChange;
     this.isDayOff = isDayOff;
   }
 
@@ -36,12 +36,12 @@ public class DayOff
 
   }
 
-  public LocalDate getDateOfDayOff() {
-    return dateOfDayOff;
+  public LocalDate getDate() {
+    return date;
   }
 
-  public String getDate() {
-    return date;
+  public String getStrDate() {
+    return strDate;
   }
 
   public boolean isCancelFirstShift() {
@@ -52,12 +52,12 @@ public class DayOff
     this.cancelFirstShift = cancelFirstChange;
   }
 
-  public boolean isCancelSeocndShift() {
-    return cancelSeocndShift;
+  public boolean isCancelSecondShift() {
+    return cancelSecondShift;
   }
 
-  public void setCancelSeocndShift(boolean cancelSeocndChange) {
-    this.cancelSeocndShift = cancelSeocndChange;
+  public void setCancelSecondShift(boolean cancelSecondChange) {
+    this.cancelSecondShift = cancelSecondChange;
   }
 
   public boolean isDayOff() {

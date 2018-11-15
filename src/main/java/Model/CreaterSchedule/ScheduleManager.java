@@ -11,19 +11,19 @@ import java.util.List;
 
 public class ScheduleManager implements Manager<ScheduleWrapperForTable>
 {
-  private ScheduleCreater creater;
-  private DayEntityManager dayManager = new DayEntityManager();
-  private List<ScheduleWrapperForTable> listScheduleWrapper = new ArrayList<>();
-  private static ScheduleManager manager = new ScheduleManager();
+  private ScheduleGenerator scheduleGenerator;
+  private final DayEntityManager dayManager = new DayEntityManager();
+  private final List<ScheduleWrapperForTable> listScheduleWrapper = new ArrayList<>();
+  private static final ScheduleManager manager = new ScheduleManager();
 
 
   public void createSchedule(LocalDate date)
   {
     if(date!=null)
-      creater=new ScheduleCreater(date);
+      scheduleGenerator =new ScheduleGenerator(date);
     else
       return;
-    creater.createSchedule();
+    scheduleGenerator.createSchedule();
     fillList();
   }
 
@@ -31,16 +31,15 @@ public class ScheduleManager implements Manager<ScheduleWrapperForTable>
   {
       if(!listScheduleWrapper.isEmpty())
         listScheduleWrapper.clear();
-      List<Day> listOfDays = creater.getDays();
+      List<Day> listOfDays = scheduleGenerator.getDays();
       dayManager.insertListDays(listOfDays);
-      for (int i = 0; i < listOfDays.size(); i++)
-      {
-        Brigade brDay = listOfDays.get(i).getBrigadeDay();
-        Brigade brNight = listOfDays.get(i).getBrigadeNight();
-        LocalDate date = listOfDays.get(i).getDate();
-        Day day = listOfDays.get(i);
-        listScheduleWrapper.add(new ScheduleWrapperForTable(brDay, brNight, date, day));
-      }
+    for (Day dayX : listOfDays) {
+      Brigade brDay = dayX.getBrigadeDay();
+      Brigade brNight = dayX.getBrigadeNight();
+      LocalDate date = dayX.getDate();
+      Day day = dayX;
+      listScheduleWrapper.add(new ScheduleWrapperForTable(brDay, brNight, date, day));
+    }
     }
 
   @Override

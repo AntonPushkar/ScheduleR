@@ -9,7 +9,8 @@ import javax.persistence.TypedQuery;
 
 public class DAODaysOffManager implements DAOManager<DayOff>  {
 
-  private EntityManager em = aDAOManager.getEm();
+  private final EntityManager em = DAOManager.em();
+
 
   @Override
   public void insert(DayOff dayOff)
@@ -24,7 +25,7 @@ public class DAODaysOffManager implements DAOManager<DayOff>  {
   public List<DayOff> get()
   {
     TypedQuery<DayOff> query = em.createQuery("select new DayOff"
-            + "(c.dateOfDayOff, c.isDayOff, c.cancelSeocndShift, c.cancelFirstShift) from DayOff c",
+            + "(c.date, c.isDayOff,c.cancelFirstShift, c.cancelSecondShift) from DayOff c",
         DayOff.class);
     return query.getResultList();
   }
@@ -33,8 +34,8 @@ public class DAODaysOffManager implements DAOManager<DayOff>  {
   public void remove(DayOff dayOff)
   {
     em.getTransaction().begin();
-    Query query = em.createQuery("delete from DayOff c where c.dateOfDayOff=:date");
-    query.setParameter("date", dayOff.getDateOfDayOff());
+    Query query = em.createQuery("delete from DayOff c where c.date=:date");
+    query.setParameter("date", dayOff.getDate());
     query.executeUpdate();
     em.getTransaction().commit();
   }
@@ -44,11 +45,11 @@ public class DAODaysOffManager implements DAOManager<DayOff>  {
   {
     em.getTransaction().begin();
     Query query = em.createQuery("UPDATE DayOff c set c.cancelFirstShift=:isCancelFirstShift,"
-        + "c.cancelSeocndShift=:isCancelSecondShift, c.isDayOff=:isDayOff where c.dateOfDayOff =:date");
+        + "c.cancelSecondShift=:isCancelSecondShift, c.isDayOff=:isDayOff where c.date =:date");
     query.setParameter("isCancelFirstShift", dayOff.isCancelFirstShift());
-    query.setParameter("isCancelSecondShift", dayOff.isCancelSeocndShift());
+    query.setParameter("isCancelSecondShift", dayOff.isCancelSecondShift());
     query.setParameter("isDayOff", dayOff.isDayOff());
-    query.setParameter("date", dayOff.getDateOfDayOff());
+    query.setParameter("date", dayOff.getDate());
     query.executeUpdate();
     em.getTransaction().commit();
 

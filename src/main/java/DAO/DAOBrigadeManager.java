@@ -7,14 +7,12 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-public class DAOBrigadeManager implements DAOManager<Brigade>
-{
-  private EntityManager em = aDAOManager.getEm();
+public class DAOBrigadeManager implements DAOManager<Brigade> {
 
+  private final EntityManager em = DAOManager.em();
 
   @Override
-  public void insert(Brigade brigade)
-  {
+  public void insert(Brigade brigade) {
     EntityTransaction tm = em.getTransaction();
     tm.begin();
     em.persist(brigade);
@@ -30,8 +28,7 @@ public class DAOBrigadeManager implements DAOManager<Brigade>
 
 
   @Override
-  public void remove(Brigade brigade)
-  {
+  public void remove(Brigade brigade) {
     em.getTransaction().begin();
     Query query = em.createQuery("delete from Brigade c where c.brigadier =:Worker "
         + "and c.listOfWorkersInBrigade =:listWorkers"
@@ -45,20 +42,15 @@ public class DAOBrigadeManager implements DAOManager<Brigade>
   }
 
   @Override
-  public void update(Brigade brigade)
-  {
+  public void update(Brigade brigade) {
     em.getTransaction().begin();
-    Query query = em.createQuery("UPDATE Brigade c set c.brigadier=:brigadier where c.numOfBrigade=:numOfBrigade");
+    Query query = em.createQuery(
+        "UPDATE Brigade c set c.brigadier=:brigadier where c.numOfBrigade=:numOfBrigade");
     query.setParameter("brigadier", brigade.getBrigadier());
-   // query.setParameter("listWorkers", brigade.getListOfWorkersInBrigade());
+    // query.setParameter("listWorkers", brigade.getListOfWorkersInBrigade());
     query.setParameter("numOfBrigade", brigade.getNumOfBrigade());
     query.executeUpdate();
     em.getTransaction().commit();
 
-  }
-
-  public static void main(String[] args) {
-    DAOBrigadeManager brigadeManager = new DAOBrigadeManager();
-    List<Brigade> list = brigadeManager.get();
   }
 }

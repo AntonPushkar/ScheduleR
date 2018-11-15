@@ -7,7 +7,7 @@ public class ValidateInitialData
 {
   public static boolean validateFirstBrigadeOfLastWeek()
   {
-    boolean result = false;
+    boolean result;
     String key = "firstBrigadeOfLastWeek";
     String value = DataScheduleProperty.readProperty(key);
     result = validateNumOfBrigade(value);
@@ -16,7 +16,7 @@ public class ValidateInitialData
 
   public static boolean validateLastBrigadeInMonth()
   {
-    boolean result = false;
+    boolean result;
     String key = "lastBrigadeInMonth";
     String value = DataScheduleProperty.readProperty(key);
     result = validateNumOfBrigade(value);

@@ -5,9 +5,7 @@ package Entity;
 
 import java.time.LocalDate;
 
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,8 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 @Entity
@@ -43,9 +39,10 @@ public class Day {
 
   }
 
-  public Day(Brigade brigadeDay, Brigade brigadeNigth, LocalDate date, boolean dayOff) {
+  public Day(Brigade brigadeDay, Brigade brigadeNight, LocalDate date, boolean dayOff,
+      boolean cancelFirstShift, boolean cancelSecondShift) {
     this.brigadeDay = brigadeDay;
-    this.brigadeNight = brigadeNigth;
+    this.brigadeNight = brigadeNight;
     this.date = date;
     this.dayOff = dayOff;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.YYYY");
@@ -64,8 +61,8 @@ public class Day {
     return brigadeNight;
   }
 
-  public void setBrigadeNigth(Brigade brigadeNigth) {
-    this.brigadeNight = brigadeNigth;
+  public void setBrigadeNight(Brigade brigadeNight) {
+    this.brigadeNight = brigadeNight;
   }
 
   public boolean isDayOff() {
@@ -103,7 +100,7 @@ public class Day {
   public String toString() {
     return "Day{" +
         "brigadeDay=" + brigadeDay +
-        ", brigadeNigth=" + brigadeNight +
+        ", brigadeNight=" + brigadeNight +
         ", date='" + date + '\'' +
         ", dayOff=" + dayOff +
         '}';

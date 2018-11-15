@@ -9,7 +9,7 @@ import javax.persistence.TypedQuery;
 
 public class DAOWorkerManager implements DAOManager<Worker>
 {
-  private EntityManager em = aDAOManager.getEm();
+  private final EntityManager em = DAOManager.em();
   @Override
   public void insert(Worker worker)
   {
@@ -46,8 +46,8 @@ public class DAOWorkerManager implements DAOManager<Worker>
   {
     em.getTransaction().begin();
     Query query = em.createQuery("UPDATE Worker c set c.name=:name, c.secName=:secName"
-        + ", c.numOfBrigade=:numBrigade, c.brigadier=:brigadier where c.personnelNum =:persNum");
-    query.setParameter("persNum", worker.getPersonnelNum());
+        + ", c.numOfBrigade=:numBrigade, c.brigadier=:brigadier where c.personnelNum =:personnelNum");
+    query.setParameter("personnelNum", worker.getPersonnelNum());
     query.setParameter("name", worker.getName());
     query.setParameter("secName", worker.getSecName());
     query.setParameter("numBrigade", worker.getNumOfBrigade());

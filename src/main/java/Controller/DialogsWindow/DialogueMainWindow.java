@@ -14,8 +14,6 @@ import javafx.stage.Stage;
 
 public class DialogueMainWindow
 {
-  private static String messageOne = "Отсутствуют данные о бригаде.\nВыберите бригаду,"
-      + "\nкоторая начинала прошлую неделю";
 
   public static int getInitialBrigade()
   {
@@ -31,6 +29,8 @@ public class DialogueMainWindow
     Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
     stage.getIcons().add(new Image("icon.png"));
     dialog.setTitle("Выбор бригады");
+    String messageOne = "Отсутствуют данные о бригаде.\nВыберите бригаду,"
+        + "\nкоторая начинала прошлую неделю";
     dialog.setHeaderText(messageOne);
     dialog.setContentText("Выбор бригады: ");
     dialog.setResizable(false);
@@ -47,7 +47,7 @@ public class DialogueMainWindow
     return choosenBrigade;
   }
 
-  public static void dontChooseDate()
+  public static void notChooseDate()
   {
     Alert alert = new Alert(AlertType.WARNING);
     Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();

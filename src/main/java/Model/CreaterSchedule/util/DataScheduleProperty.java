@@ -1,16 +1,15 @@
 package Model.CreaterSchedule.util;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 public class DataScheduleProperty
 {
-  private static FileOutputStream outProp;
+
   private static FileInputStream inProp;
-  private static Properties scheduleProperties = new Properties();
+  private static final Properties scheduleProperties = new Properties();
 
   public static void writeProperty(String key, String value)
   {
@@ -18,7 +17,7 @@ public class DataScheduleProperty
       inProp = new FileInputStream("Schedule.properties");
       scheduleProperties.load(inProp);
       inProp.close();
-      outProp = new FileOutputStream("Schedule.properties");
+      FileOutputStream outProp = new FileOutputStream("Schedule.properties");
       scheduleProperties.setProperty(key, value);
       String comment = "properties of Schedule";
       scheduleProperties.store(outProp, comment);

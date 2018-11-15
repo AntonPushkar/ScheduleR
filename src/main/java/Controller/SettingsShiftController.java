@@ -26,8 +26,8 @@ import javafx.scene.input.MouseEvent;
 
 public class SettingsShiftController
 {
-  private DayOffEntityManager dayOffManager = new DayOffEntityManager();
-  private ScheduleManager scheduleManager = ScheduleManager.getScheduleManager();
+  private final DayOffEntityManager dayOffManager = new DayOffEntityManager();
+  private final ScheduleManager scheduleManager = ScheduleManager.getScheduleManager();
   @FXML
   private TextField TextFieldFirstShift;
   @FXML
@@ -121,7 +121,7 @@ public class SettingsShiftController
     setDayOff.setVisible(!setDayOff.isVisible());
   }
 
-  public void fillTableShifts()
+  private void fillTableShifts()
   {
     if(!TableDatesShifts.getItems().isEmpty()) TableDatesShifts.getItems().clear();
     ObservableList<ScheduleWrapperForTable> list =
@@ -130,15 +130,16 @@ public class SettingsShiftController
     fillTable(TableDatesShifts, ColumnDatesShifts, list, field);
   }
 
-  public void fillTableDaysOff()
+  private void fillTableDaysOff()
   {
     if(!TableDatesDaysOff.getItems().isEmpty()) TableDatesShifts.getItems().clear();
     ObservableList<DayOff> list =  FXCollections.observableList(dayOffManager.getListEntities());
-    String field = "date";
+    String field = "strDate";
     fillTable(TableDatesDaysOff, ColumnDatesDaysOff, list, field);
   }
 
-  public void fillTable(TableView table, TableColumn tableColumn, ObservableList list, String field) {
+  private void fillTable(TableView table, TableColumn tableColumn, ObservableList list,
+      String field) {
     if(!table.getItems().isEmpty())
       table.getItems().clear();
     tableColumn.setCellValueFactory(new PropertyValueFactory(field));
@@ -162,11 +163,11 @@ public class SettingsShiftController
     displayDay(day);
   }
 
-  public void displayDay(ScheduleWrapperForTable day)
+  private void displayDay(ScheduleWrapperForTable day)
   {
     TextFieldFirstShift.setText(String.valueOf(day.getBrigadeDay()));
     TextFieldSecondShift.setText(String.valueOf(day.getBrigadeNight()));
-    String isDayOff = "";
+    String isDayOff;
     if(day.getBrigadeDay().equals("Выходной") && day.getBrigadeNight().equals("Выходной"))
       isDayOff = "Да";
     else
@@ -188,7 +189,7 @@ public class SettingsShiftController
         day.setCancelFirstShift(true);
       if (cancelSecondShift.isSelected())
         day.setCancelSecondShift(true);
-      EditCreateDaysOff.analizeDayOff(day);
+      EditCreateDaysOff.analyzeDayOff(day);
       changeWrapperDay(day, wrapperDay);
       displayDay(wrapperDay);
     }
