@@ -1,6 +1,6 @@
 package Controller;
 
-import Controller.DialogsWindow.DialogueMainWindow;
+import Controller.DialogsWindow.Dialogues;
 import Entity.ScheduleWrapperForTable;
 import Main.BrigadeWindow;
 import Main.SetupShiftsWindow;
@@ -26,6 +26,8 @@ public class MainController
 
   private final ScheduleManager scheduleManager = ScheduleManager.getScheduleManager();
   private LocalDate date;
+  private final String MESSAGE_HEADER_DIDNT_CHOOSEN_DATE = "Не выбрана дата для создания расписания";
+  private final String MESSAGE_CHOOSE_DATE = "Выберите дату нажав на календарь над кнопкой \"Создать расписание\"";
 
   @FXML
   private Button BrigadeButton;
@@ -53,7 +55,7 @@ public class MainController
   public void createToSchedule(ActionEvent event)
   {
     if(date ==null) {
-      DialogueMainWindow.notChooseDate();
+      Dialogues.showErrorDialogue(MESSAGE_HEADER_DIDNT_CHOOSEN_DATE, MESSAGE_CHOOSE_DATE);
     }
     else {
       generateSchedule();

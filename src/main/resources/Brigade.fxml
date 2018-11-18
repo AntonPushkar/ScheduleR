@@ -36,7 +36,7 @@
       <Button fx:id="ButtonRemove" layoutX="208.0" layoutY="350.0" mnemonicParsing="false"
         onAction="#removeWorker" text="Удалить"/>
       <Button fx:id="ButtonAcceptAddWorker" layoutX="32.0" layoutY="349.0"
-        mnemonicParsing="false" onAction="#AcceptAdd" text="Ок" visible="false"/>
+        mnemonicParsing="false" onAction="#acceptAdd" text="Ок" visible="false"/>
       <Button fx:id="CancelButton" layoutX="280.0" layoutY="349.0" mnemonicParsing="false"
         onAction="#cancel" text="Отмена" visible="false"/>
       <TextField fx:id="TextFieldName" editable="false" layoutX="183.0" layoutY="52.0"/>
@@ -47,6 +47,6 @@
       <CheckBox fx:id="AssignBrigadier" layoutX="145.0" layoutY="168.0" mnemonicParsing="false"
         onAction="#selectBrigadierCheckBox" visible="false"/>
       <Button fx:id="AcceptEditWorker" layoutX="32.0" layoutY="349.0" mnemonicParsing="false"
-        onAction="#AcceptEdit" text="Ok" visible="false"/>
+        onAction="#acceptEdit" text="Ok" visible="false"/>
    </Pane>
 </AnchorPane>

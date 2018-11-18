@@ -1,6 +1,6 @@
 package Controller;
 
-import Controller.DialogsWindow.DialogueWindowIErrorBrigade;
+import Controller.DialogsWindow.Dialogues;
 import Controller.Validators.ValidateWorkerFields;
 import Entity.Worker;
 import Model.Managers.WorkerEntityManager;
@@ -20,6 +20,11 @@ import javafx.scene.input.MouseEvent;
 public class BrigadeController
 {
   private final WorkerEntityManager WorkMan = new WorkerEntityManager();
+  private final String MESSAGE_HEADER_DIDNT_CHOOSEN_WORKER = "Не выбран ни один человек";
+  private final String MESSAGE_CHOOSE_WORKER = "Выберите человека из списка";
+  private final String MESSAGE_HEADER_CHECK_CORRECT_INPUT = "Проверьте правильность ввода данных!";
+  private final String MESSAGE_CORRECT_INPUT = "Поля не могут быть пустыми, или с неверными значениями. Имя, Фамилия, номер,"
+      + " - не пусты. Номер бригады только цифры!";
   @FXML
   private Button ButtonAdd;
   @FXML
@@ -87,7 +92,7 @@ public class BrigadeController
       fillTable();
     }
     else
-      DialogueWindowIErrorBrigade.AlertNotSelected();
+      Dialogues.showErrorDialogue(MESSAGE_HEADER_DIDNT_CHOOSEN_WORKER, MESSAGE_CHOOSE_WORKER);
   }
 
   private void DisplayInformation(Worker worker)
@@ -153,7 +158,7 @@ public class BrigadeController
   }
 
 
-  public void AcceptAdd(ActionEvent event)
+  public void acceptAdd(ActionEvent event)
   {
     if(validate()) {
       boolean isBrigadier = AssignBrigadier.isSelected();
@@ -166,7 +171,7 @@ public class BrigadeController
     }
     else
     {
-      DialogueWindowIErrorBrigade.AlertInTextField();
+      Dialogues.showErrorDialogue(MESSAGE_HEADER_CHECK_CORRECT_INPUT, MESSAGE_CORRECT_INPUT);
     }
   }
 
@@ -202,7 +207,7 @@ public class BrigadeController
   {
     if(TableBrigade.getSelectionModel().getSelectedItem()==null)
     {
-      DialogueWindowIErrorBrigade.AlertNotSelected();
+      Dialogues.showErrorDialogue(MESSAGE_HEADER_DIDNT_CHOOSEN_WORKER, MESSAGE_CHOOSE_WORKER);
       return;
     }
     ButtonAdd.setVisible(false);
@@ -226,7 +231,7 @@ public class BrigadeController
     return ValidateWorkerFields.validateWorker(name, secName, numOfBrigadeStr, personnelNum);
   }
 
-  public void AcceptEdit(ActionEvent event)
+  public void acceptEdit(ActionEvent event)
   {
 
     if(validate()) {
@@ -240,7 +245,7 @@ public class BrigadeController
     }
     else
     {
-      DialogueWindowIErrorBrigade.AlertInTextField();
+      Dialogues.showErrorDialogue(MESSAGE_HEADER_CHECK_CORRECT_INPUT, MESSAGE_CORRECT_INPUT);
     }
   }
 }

@@ -1,5 +1,6 @@
 package Controller;
 
+import Controller.DialogsWindow.Dialogues;
 import Entity.Day;
 import Entity.DayOff;
 import Entity.ScheduleWrapperForTable;
@@ -28,6 +29,9 @@ public class SettingsShiftController
 {
   private final DayOffEntityManager dayOffManager = new DayOffEntityManager();
   private final ScheduleManager scheduleManager = ScheduleManager.getScheduleManager();
+  private final String MESSAGE_HEADER_DIDNT_CHOOSEN_DATE = "Не выбрана дата";
+  private final String MESSAGE_CHOOSE_DATE_IN_TABLE = "Выберите дату в таблице слева";
+  private final String MESSAGE_CHOOSE_DATE_IN_DATEPICKER = "Выберите дату в календаре";
   @FXML
   private TextField TextFieldFirstShift;
   @FXML
@@ -148,10 +152,12 @@ public class SettingsShiftController
   public void BtnAcceptDayOff(ActionEvent event)
   {
     LocalDate date = DaysOffDatePicker.getValue();
-    if(date != null)
-    {
+    if (date == null) {
+      Dialogues.showErrorDialogue(MESSAGE_HEADER_DIDNT_CHOOSEN_DATE, MESSAGE_CHOOSE_DATE_IN_DATEPICKER);
+    } else {
       System.out.println("OK");
-      DayOff dayOff = new DayOff(date, setDayOff.isSelected(),  cancelFirstShift.isSelected(), cancelSecondShift.isSelected());
+      DayOff dayOff = new DayOff(date, setDayOff.isSelected(), cancelFirstShift.isSelected(),
+          cancelSecondShift.isSelected());
       dayOffManager.insert(dayOff);
       fillTableDaysOff();
     }
@@ -177,13 +183,18 @@ public class SettingsShiftController
 
   public void IsItemSelectDaysOff(MouseEvent mouseEvent)
   {
-    DayOff day = TableDatesDaysOff.getSelectionModel().getSelectedItem();
+    DayOff dayOff = TableDatesDaysOff.getSelectionModel().getSelectedItem();
+    cancelFirstShift.setSelected(dayOff.isCancelFirstShift());
+    cancelSecondShift.setSelected(dayOff.isCancelSecondShift());
+    setDayOff.setSelected(dayOff.isDayOff());
   }
 
   public void BtnAcceptChangeInShifts(ActionEvent actionEvent)
   {
     ScheduleWrapperForTable wrapperDay = TableDatesShifts.getSelectionModel().getSelectedItem();
-    if(wrapperDay!=null) {
+    if(wrapperDay==null)
+      Dialogues.showErrorDialogue(MESSAGE_HEADER_DIDNT_CHOOSEN_DATE, MESSAGE_CHOOSE_DATE_IN_TABLE);
+    else {
       Day day = wrapperDay.getDayOfSchedule();
       if (cancelFirstShift.isSelected())
         day.setCancelFirstShift(true);

@@ -1,6 +1,6 @@
 package Model.CreaterSchedule;
 
-import Controller.DialogsWindow.DialogueMainWindow;
+import Controller.DialogsWindow.Dialogues;
 import Entity.Brigade;
 import Entity.Day;
 import Entity.DayOff;
@@ -57,8 +57,9 @@ public class ScheduleGenerator
     }
     else
     {
-      if(!ValidateInitialData.validateLastBrigadeInMonth())
-        DialogueMainWindow.getInitialBrigade();
+      if (!ValidateInitialData.validateLastBrigadeInMonth()) {
+        Dialogues.getInitialBrigade();
+      }
       generateSchedule();
       System.out.println((days.size()));
     }

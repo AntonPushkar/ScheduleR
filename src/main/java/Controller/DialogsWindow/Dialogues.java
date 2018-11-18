@@ -12,8 +12,18 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-public class DialogueMainWindow
+public class Dialogues
 {
+  public static void showErrorDialogue(String header, String messageTwo)
+  {
+    Alert alert = new Alert(AlertType.WARNING);
+    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+    stage.getIcons().add(new Image("icon.png"));
+    alert.setTitle("Ошибка!");
+    alert.setHeaderText(header);
+    alert.setContentText(messageTwo);
+    alert.showAndWait();
+  }
 
   public static int getInitialBrigade()
   {
@@ -46,19 +56,4 @@ public class DialogueMainWindow
 
     return choosenBrigade;
   }
-
-  public static void notChooseDate()
-  {
-    Alert alert = new Alert(AlertType.WARNING);
-    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-    stage.getIcons().add(new Image("icon.png"));
-    alert.setTitle("Ошибка!");
-    alert.setHeaderText("Не выбрана дата для создания расписания");
-    String textContent = "Выберите дату нажав на календарь над кнопкой 'Создать расписание'";
-    alert.setContentText(textContent);
-    alert.showAndWait();
-  }
-
-
-
 }
