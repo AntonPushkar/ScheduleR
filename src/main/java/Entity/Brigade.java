@@ -21,15 +21,19 @@ public class Brigade
   private int numOfBrigade;
   @OneToOne
   private Worker brigadier;
-  @OneToMany(fetch = FetchType.EAGER, targetEntity = Worker.class, cascade = CascadeType.ALL)
-  private final List<Worker> listOfWorkersInBrigade = new ArrayList<>();
+  @OneToMany(fetch = FetchType.EAGER, targetEntity = Worker.class, cascade = CascadeType.ALL, orphanRemoval = true)
+  private final List<Worker> listOfWorkersInBrigade = new ArrayList<Worker>();
+
+
+
+
   public Worker getBrigadier() {
     return brigadier;
   }
-
   public void setBrigadier(Worker brigadier) {
     this.brigadier = brigadier;
   }
+
 
   public Brigade() {
   }

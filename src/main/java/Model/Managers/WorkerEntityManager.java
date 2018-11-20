@@ -14,23 +14,27 @@ public class WorkerEntityManager implements EntityManager<Worker> {
 
   @Override
   public void insert(Worker worker) {
+    int numBrigade = worker.getNumOfBrigade()-1;
+    Brigade brigade = listOfBrigade.get(numBrigade);
+    brigade.addWorker(worker);
     workerManager.insert(worker);
   }
 
   @Override
   public List<Worker> getListEntities() {
-    List<Worker> listWorker;
-    return listWorker =workerManager.get();
+    return workerManager.get();
   }
 
   @Override
   public void remove(Worker worker)
   {
     int numBrigade = worker.getNumOfBrigade()-1;
-    //listOfBrigade.get(numBrigade).getListOfWorkersInBrigade().remove(worker);
+    Brigade brigade = listOfBrigade.get(numBrigade);
+    listOfBrigade.get(numBrigade).getListOfWorkersInBrigade().remove(worker);
     workerManager.remove(worker);
-   // brigadeManager.update(listOfBrigade.get(numBrigade));
   }
+
+
 
   @Override
   public void update(Worker worker)

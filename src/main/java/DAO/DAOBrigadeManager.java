@@ -10,7 +10,6 @@ import javax.persistence.TypedQuery;
 public class DAOBrigadeManager implements DAOManager<Brigade> {
 
   private final EntityManager em = DAOManager.em();
-
   @Override
   public void insert(Brigade brigade) {
     EntityTransaction tm = em.getTransaction();
@@ -44,13 +43,8 @@ public class DAOBrigadeManager implements DAOManager<Brigade> {
   @Override
   public void update(Brigade brigade) {
     em.getTransaction().begin();
-    Query query = em.createQuery(
-        "UPDATE Brigade c set c.brigadier=:brigadier where c.numOfBrigade=:numOfBrigade");
-    query.setParameter("brigadier", brigade.getBrigadier());
-    // query.setParameter("listWorkers", brigade.getListOfWorkersInBrigade());
-    query.setParameter("numOfBrigade", brigade.getNumOfBrigade());
-    query.executeUpdate();
+    em.merge(brigade);
+    em.flush();
     em.getTransaction().commit();
-
   }
 }

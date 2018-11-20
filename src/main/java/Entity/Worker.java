@@ -1,5 +1,6 @@
 package Entity;
 
+import Model.Managers.BrigadeEntityManager;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -32,15 +33,17 @@ public class Worker extends Employee
 
     public Worker(String name, String secName, int numOfBrigade, String PersonnelNum, boolean isBrigadier)
     {
-    super(name, secName, PersonnelNum);
-    this.numOfBrigade = numOfBrigade;
-    this.brigadier = isBrigadier;
-    this.fullName = name + " " + secName;
+      super(name, secName, PersonnelNum);
+      Brigade brigade = new BrigadeEntityManager().getListEntities().get(numOfBrigade-1);
+      this.numOfBrigade = numOfBrigade;
+      this.brigadier = isBrigadier;
+      this.fullName = name + " " + secName;
+      this.brigade = brigade;
+      //brigade.addWorker(this);
     }
 
 
 
-  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -49,12 +52,10 @@ public class Worker extends Employee
       return false;
     }
     Worker worker = (Worker) o;
-
-    return
-        numOfBrigade == worker.numOfBrigade &&
-        Objects.equals(super.getName(), worker.getName()) &&
-        Objects.equals(super.getSecName(), worker.getName()) &&
-        Objects.equals(fullName, worker.fullName);
+    return (numOfBrigade==worker.numOfBrigade)
+        && (brigadier==worker.brigadier)
+        && (super.getName().equals(worker.getName())) && (super.getSecName().equals(worker.getSecName()))
+        && (super.getPersonnelNum().equals(worker.getPersonnelNum()));
   }
 
   @Override
@@ -117,5 +118,16 @@ public class Worker extends Employee
 
   public void setFullName(String fullName) {
     this.fullName = fullName;
+  }
+
+  @Override
+  public String toString() {
+    return "Worker{" +
+        "id=" + id +
+        ", numOfBrigade=" + numOfBrigade +
+        ", brigadier=" + brigadier +
+        ", brigade=" + brigade +
+        ", fullName='" + fullName + '\'' +
+        '}';
   }
 }
