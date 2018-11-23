@@ -28,7 +28,7 @@ public class ReportOfSchedule
     JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listSchedule);
     JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, new HashMap(), dataSource);
     String PATH = "C:\\Users\\Anton\\Desktop\\Projects\\Schedule11\\src\\test";
-    JasperExportManager.exportReportToHtmlFile(jasperPrint, PATH+"report333.html");
+    JasperExportManager.exportReportToHtmlFile(jasperPrint, PATH+"report333.xls");
 
     JRXlsExporter exporter = new JRXlsExporter();
 

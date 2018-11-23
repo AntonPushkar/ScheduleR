@@ -18,7 +18,7 @@
 		<band height="87" splitType="Stretch">
 			<image>
 				<reportElement x="118" y="0" width="305" height="87" uuid="88a976e6-0402-4d36-ab7c-3fabbecc4f00"/>
-				<imageExpression><![CDATA["file:/C:/Users/Anton/JaspersoftWorkspace/MyReports/Stansh.png"]]></imageExpression>
+				<imageExpression><![CDATA["Stansh.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

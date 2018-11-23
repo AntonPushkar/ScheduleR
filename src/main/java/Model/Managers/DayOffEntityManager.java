@@ -8,11 +8,19 @@ import java.util.List;
 public class DayOffEntityManager implements EntityManager<DayOff>
 {
 
-  DAOManager<DayOff> manager = new DAODaysOffManager();
+  private DAOManager<DayOff> manager = new DAODaysOffManager();
 
   @Override
   public void insert(DayOff dayOff)
   {
+    for(DayOff x : getListEntities())
+    {
+      if (x.getDate().equals(dayOff.getDate()))
+      {
+        getListEntities().remove(x);
+        remove(x);
+      }
+    }
     manager.insert(dayOff);
   }
 

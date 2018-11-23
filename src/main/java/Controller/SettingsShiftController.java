@@ -70,6 +70,8 @@ public class SettingsShiftController
   private CheckBox setDayOff;
   @FXML
   private Button ButtonAcceptChangeInShifts;
+  @FXML
+  private Button btnRemoveDayOff;
 
   private boolean selectShifts=true;
 
@@ -123,6 +125,8 @@ public class SettingsShiftController
     TableDatesDaysOff.setVisible(!TableDatesShifts.isVisible());
     ButtonAcceptChangeInShifts.setVisible(!ButtonAcceptChangeInShifts.isVisible());
     setDayOff.setVisible(!setDayOff.isVisible());
+    btnRemoveDayOff.setVisible(!btnRemoveDayOff.isVisible());
+
   }
 
   private void fillTableShifts()
@@ -152,10 +156,11 @@ public class SettingsShiftController
   public void BtnAcceptDayOff(ActionEvent event)
   {
     LocalDate date = DaysOffDatePicker.getValue();
-    if (date == null) {
+    if (date == null)
+    {
       Dialogues.showErrorDialogue(MESSAGE_HEADER_DIDNT_CHOOSEN_DATE, MESSAGE_CHOOSE_DATE_IN_DATEPICKER);
-    } else {
-      System.out.println("OK");
+    }
+    else {
       DayOff dayOff = new DayOff(date, setDayOff.isSelected(), cancelFirstShift.isSelected(),
           cancelSecondShift.isSelected());
       dayOffManager.insert(dayOff);
@@ -165,8 +170,11 @@ public class SettingsShiftController
 
   public void IsItemSelectShifts(MouseEvent mouseEvent)
   {
-    ScheduleWrapperForTable day = TableDatesShifts.getSelectionModel().getSelectedItem();
-    displayDay(day);
+    if(TableDatesDaysOff.getSelectionModel().getSelectedItem()!= null||
+    TableDatesShifts.getSelectionModel().getSelectedItem()!=null) {
+      ScheduleWrapperForTable day = TableDatesShifts.getSelectionModel().getSelectedItem();
+      displayDay(day);
+    }
   }
 
   private void displayDay(ScheduleWrapperForTable day)
@@ -212,5 +220,12 @@ public class SettingsShiftController
       wrapper.setBrigadeDay("Выходной");
     if(day.isCancelSecondShift())
       wrapper.setBrigadeNight("Выходной");
+  }
+
+  public void removeDayOff(ActionEvent actionEvent)
+  {
+    DayOff dayOff = TableDatesDaysOff.getSelectionModel().getSelectedItem();
+    dayOffManager.remove(dayOff);
+    fillTableDaysOff();
   }
 }
